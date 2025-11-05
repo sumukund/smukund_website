@@ -1,0 +1,14 @@
+    *.tmp
+    *.bak
+    *~
+    *.log
+    config.ini
+    .env
+    build/
+    dist/
+    .bash_*
+    ~/.*
+    .DS_Store
+    *.xml
+    .bash_sessions/*
+    *.history
