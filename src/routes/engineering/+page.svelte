@@ -6,21 +6,6 @@
 </script>
 
 <section class="cv">
-
-	<div class="quote">
-
-		<p>
-			“A rising star who has spent the last several years
-			building advanced ML, computer vision, and 3D capabilities.
-			Sudarsna also brings strong front-end experience and a
-			track record of diving deep into complex technical challenges.”
-		</p>
-
-		<span>
-			— Todd Hagen, Principal Engineer
-		</span>
-
-	</div>
 <nav class="section-nav">
 
 	<a href="#education">
@@ -36,6 +21,21 @@
 	</a>
 
 </nav>
+	<div class="quote">
+
+		<p>
+			“A rising star who has spent the last several years
+			building advanced ML, computer vision, and 3D capabilities.
+			Sudarsna also brings strong front-end experience and a
+			track record of diving deep into complex technical challenges.”
+		</p>
+
+		<span>
+			— Todd Hagen, Principal Engineer
+		</span>
+
+	</div>
+
 	{#each engineeringExperience as section}
 
 		<section class="cv-section" id={section.id}>
@@ -330,7 +330,7 @@
 
 	display: flex;
 
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 
 	gap: 2rem;
 

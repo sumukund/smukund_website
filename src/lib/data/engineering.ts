@@ -1,13 +1,14 @@
 export const engineeringExperience = [
   {
     section: "Education",
-    id:"education",
+    id: "education",
 
     entries: [
       {
         title: "MS, Computer Science",
         organization: "University of Minnesota",
-        years: "2024 – Present",
+        years: "2024 – 2026",
+        gpa: "3.8",
 
         description: [
           "Research and coursework focused on machine learning, computer vision, visualization, and interactive systems.",
@@ -31,9 +32,10 @@ export const engineeringExperience = [
       },
 
       {
-        title: "BS, Information Technology",
-        organization: "Northeastern University CPS",
-        years: "2022",
+        title: "BS, Information Technology, Minor, Cybersecurity",
+        organization: "Northeastern University",
+        years: "2017-2021",
+        gpa: "3.7",
 
         description: ["Graduated cum laude."],
       },
@@ -41,8 +43,8 @@ export const engineeringExperience = [
   },
 
   {
-      section: "Research Experience",
-      id:"research",
+    section: "Research Experience",
+    id: "research",
 
     entries: [
       {
@@ -53,22 +55,22 @@ export const engineeringExperience = [
         link: "https://ivlab.cs.umn.edu/smukund.html",
 
         description: [
-          "Research assistant on motion tracking systems using TouchDesigner, depth estimation, and computer vision.",
+          "Research assistant in the Interactive Visualization Lab using TouchDesigner, depth estimation, and computer vision (YOLOv8).",
           "Exploring the intersection of dance, embodiment, and computational systems.",
-        ],
+            ],
       },
     ],
   },
 
   {
-      section: "Industry Experience",
-      id:"industry",
+    section: "Industry Experience",
+    id: "industry",
 
     entries: [
       {
         title: "Software Engineer",
         organization: "Target",
-        years: "2022 – Present",
+        years: "2022 – 2025",
 
         description: [
           "Developed a React.js endpoint delivering AI-powered content moderation tools to internal users.",
@@ -91,7 +93,7 @@ export const engineeringExperience = [
 
           "Architected ROS2 shelf-reading systems using YOLOv8 object detection and EasyOCR character recognition.",
 
-          "Participated in internal hackathons and exploratory research initiatives focused on emerging technologies.",
+          "Won the 2025 CodeRED internal hackathon focused on integrating AI into store technologies.",
         ],
       },
 

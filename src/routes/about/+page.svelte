@@ -10,19 +10,12 @@
 	<main>
 
 		<h1>
-			I build systems across choreography,
-			machine learning, and immersive media.
+			About
 		</h1>
 
 		<p>
-			My work explores embodiment,
-			performance, computer vision,
-			and interactive technologies through
-			both engineering and artistic practice.
+			
 		</p>
-        <p>
-            Represented by Meredith Agency and Wehmann Agency
-        </p>
 
 	</main>
 
