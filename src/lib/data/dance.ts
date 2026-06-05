@@ -1,5 +1,20 @@
-export const artisticWorks = [
+const imageModules = import.meta.glob(
+  "$lib/assets/images/*.{png,jpg,jpeg,svg,webp}",
+  { eager: true }
+);
 
+export const images = Object.entries(imageModules).reduce(
+  (acc, [path, module]) => {
+    const fileName = path.split("/").pop()?.split(".")[0];
+    if (fileName) {
+      acc[fileName] = (module as { default: string }).default;
+    }
+    return acc;
+  },
+  {} as Record<string, string>
+);
+
+export const artisticWorks = [
   {
     title: "for i am in range",
     category: "Performance / Choreography",
@@ -8,7 +23,7 @@ export const artisticWorks = [
     location: "Minneapolis, MN",
     description:
       "Short dance work presented in the Rejects Cohort exposition featuring works previously rejected or unfinished.",
-    image: "src/lib/assets/images/range.jpg",
+    image: images.range, // Changed from hardcoded string
     link: "https://www.youtube.com/watch?v=13JmvOMBKlw",
     featured: true,
     size: "small",
@@ -20,12 +35,11 @@ export const artisticWorks = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "An exploration of feminine rage",
-    image: "src/lib/assets/images/aathiram.jpg",
+    image: images.aathiram, // Changed from hardcoded string
     link: "https://www.youtube.com/watch?v=YTdPrk7j_fw",
     featured: true,
     size: "small",
   },
-
   {
     title: "Rhinoceros",
     category: "Theater / Movement Direction",
@@ -34,7 +48,7 @@ export const artisticWorks = [
     location: "Minneapolis, MN",
     description:
       "Movement Captain, Influencer, and Ensemble Member in Rhinoceros directed by Dipankar Mukherjee.",
-    image: "src/lib/assets/images/rhinoceros.jpg",
+    image: images.rhinoceros, // Changed from hardcoded string
     link: "https://www.pangeaworldtheater.org/events/rhinoceros-2025-04-12-19-30",
     featured: true,
     size: "small",
@@ -47,12 +61,11 @@ export const artisticWorks = [
     location: "Minneapolis, MN",
     description:
       "An exploration of Kabir, a 15th century poet from India for the stage through poetry, spoken word, music, and movement.",
-    image: "src/lib/assets/images/mind.jpg",
+    image: images.mind, // Changed from hardcoded string
     link: "https://www.pangeaworldtheater.org/events/the-mind-has-a-hundred-thousand-gates-2026-04-10-19-30",
     featured: true,
     size: "small",
   },
-
   {
     title: "Doma Dance Theater Chyza Microresidency",
     category: "Residency / Research",
@@ -61,10 +74,9 @@ export const artisticWorks = [
     location: "Minneapolis, MN",
     description:
       "Work-in-progress residency exploring movement research and choreographic experimentation.",
-    image: "src/lib/assets/images/doma.jpg",
+    image: images.doma, // Changed from hardcoded string
     size: "small",
   },
-
   {
     title: "Hecuba",
     category: "Theater Performance",
@@ -72,12 +84,11 @@ export const artisticWorks = [
     year: "2024",
     location: "Minneapolis, MN",
     description: "Servant and Boy, Production Intern.",
-    image: "src/lib/assets/images/hecuba.png",
+    image: images.hecuba, // Changed from hardcoded string
     link: "https://minnesotaplaylist.com/show/2024/hecuba-marina-carr",
     featured: true,
     size: "small",
   },
-
   {
     title: "Ragamala Dance Company",
     category: "Dance Company / Teaching",
@@ -86,12 +97,11 @@ export const artisticWorks = [
     location: "Minneapolis, MN",
     description:
       "Performed in outreach events and festivals including Soorya Dance Festival in Kerala, India. Taught Bharatanatyam to K–7 students.",
-    image: "src/lib/assets/images/ragamala.jpg",
+    image: images.ragamala, // Changed from hardcoded string
     link: "https://youtu.be/Swowxx4W4_w",
     featured: true,
     size: "small",
   },
-
   {
     title: "And the Breath In Between",
     category: "Contemporary Dance",
@@ -100,11 +110,10 @@ export const artisticWorks = [
     location: "Vermont",
     description:
       "Stage manager and interpretive performer in a collaborative contemporary dance work exploring breath, embodiment, and improvisation.",
-    image: "src/lib/assets/images/breath.jpg",
+    image: images.breath, // Changed from hardcoded string
     link: "https://www.nikaio.com/breath",
     size: "small",
   },
-
   {
     title: "Brown Girl Magazine",
     category: "Interview / Writing",
@@ -112,11 +121,10 @@ export const artisticWorks = [
     year: "2019",
     description:
       "Interview discussing diversity and inclusion within ballet and performance spaces.",
-    image: "src/lib/assets/images/bgm.jpg",
+    image: images.bgm, // Changed from hardcoded string
     link: "https://browngirlmagazine.com/ballerina-sudarsna-mukund-importance-of-diversity-inclusion-ballet-world/",
     size: "small",
   },
-
   {
     title: "The Indian Edit",
     category: "Podcast",
@@ -124,11 +132,10 @@ export const artisticWorks = [
     year: "2019",
     description:
       "Podcast feature discussing ballet, identity, and artistic life.",
-    image: "src/lib/assets/images/indian-edit.jpg",
+    image: images["indian-edit"], // Changed from hardcoded string (hyphens require bracket notation)
     link: "https://www.theindianedit.com/home/2019/12/6/kick-off-the-holiday-season-with-a-back-stage-pass-into-ballerina-sudarsna-mukunds-life",
     size: "small",
   },
-
   {
     title: "State Opera Plovdiv",
     category: "Ballet",
@@ -136,7 +143,7 @@ export const artisticWorks = [
     year: "2018-2019",
     description:
       "Professional ballet dancer for the State Opera Plovdiv for the European Capital of Culture 2019. ",
-    image: "src/lib/assets/images/plovdiv.jpg",
+    image: images.plovdiv, // Changed from hardcoded string
     size: "small",
   },
 ];
