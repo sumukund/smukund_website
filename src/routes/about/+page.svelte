@@ -9,14 +9,22 @@
 
 	<main>
 
-		<h1>
-			About
-		</h1>
-
 		<p>
-			
+			Sudarsna Mukund (she/they) is a Tamil multidisciplinary performing artist and computer vision engineer. She has performed internationally in Maria de Buenos Aires and Orpheus and
+Eurydice with State Opera Plovdiv, as well as Giselle, Swan Lake, Cinderella, and Carmen. She
+has also performed in Ragamala Dance’s Fires of Varanasi in Kerala, India, City Ballet Boston’s
+Urban Nutcracker, and theatrical productions including Hecuba and Rhinoceros with Pangea World
+Theater. Her choreographic work explores Tamil futurism and a desire to root oneself in place through data physicalization. Her practice combines Bharathanatyam, contemporary dance, and aerial arts with
+data visualization drawn from her background in engineering to investigate the myriad experiences
+of being through performing art.
 		</p>
 
+		<div>
+				<h2>Get in touch!</h2>
+				<p>For all inquiries or project ideas, please email me below:</p>
+				<p><a href="mailto:mukun017@gmail.com">Contact Me</a></p>
+				<p><a href="instagram.com/sudarsnak/">Instagram</a></p>
+			</div>
 	</main>
 
 </div>
