@@ -7,7 +7,6 @@
     <main>
         <!-- Academic Header Block -->
         <header class="project-header">
-            <p class="venue-tag">IEEE VISAP 2026 Submission</p>
             <h1>Embodied Geography: Processing Operation Metro Surge through Gesture and Sound</h1>
             
             <div class="authors">
@@ -96,7 +95,7 @@
         <section class="section-container technical">
             <h2>Technical Requirements</h2>
             <p>
-                Given that VISAP '26 is an in-person event, this work is designed to be presented physically within the gallery space, while remaining adaptable for a virtual art exhibition layout. The installation requires a minimum spatial footprint of 20ft × 25ft × 8ft to accommodate motion tracking sensors and physical performance elements. 
+               This work is designed to be presented physically within the gallery space, while remaining adaptable for a virtual art exhibition layout. The installation requires a minimum spatial footprint of 20ft × 25ft × 8ft to accommodate motion tracking sensors and physical performance elements. 
             </p>
             <blockquote>
                 <strong>Required Infrastructure:</strong> Tripod, ZED Stereo 2i Depth Camera, Stereo Speakers, 2 to 3 Stage Lights. 
