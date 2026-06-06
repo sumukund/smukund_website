@@ -8,10 +8,20 @@ export const engineeringExperience = [
         title: "MS, Computer Science",
         organization: "University of Minnesota",
         years: "2024 – 2026",
-        gpa: "3.8",
+        gpa: "3.81",
 
         description: [
           "Research and coursework focused on machine learning, computer vision, visualization, and interactive systems.",
+        ],
+        relevant_coursework: [
+          "Fundamentals of Matrix Theory",
+          "Machine Learning Fundamentals",
+          "Social and Collaborative Computing",
+          "Software Engineering I and II",
+          "Sustainable Computation",
+          "3D Drawing in eXtended Reality",
+          "Developing the Interactive Web",
+          "Visualization",
         ],
 
         projects: [
@@ -35,9 +45,17 @@ export const engineeringExperience = [
         title: "BS, Information Technology, Minor, Cybersecurity",
         organization: "Northeastern University",
         years: "2017-2021",
-        gpa: "3.7",
+        gpa: "3.6",
 
-        description: ["Graduated cum laude."],
+        relevant_coursework: [
+          "Operating Systems Concepts",
+          "Data Structures and Algorithms",
+          "Legal and Ethical Issues in Cybersecurity",
+          "Cryptography",
+          "Principles of Systems Analysis and Design",
+          "Forensics in Information Technology",
+          "Software Vulnerabilities",
+        ],
       },
     ],
   },
@@ -48,16 +66,15 @@ export const engineeringExperience = [
 
     entries: [
       {
-        title: "Masters Research Assistant",
+        title: "Research Partner",
         organization: "Interactive Visualization Lab",
         years: "2025 – Present",
 
         link: "https://ivlab.cs.umn.edu/smukund.html",
-
         description: [
-          "Research assistant in the Interactive Visualization Lab using TouchDesigner, depth estimation, and computer vision (YOLOv8).",
-          "Exploring the intersection of dance, embodiment, and computational systems.",
-            ],
+          "Researcher in the Interactive Visualization Lab using TouchDesigner, depth estimation, and computer vision (YOLOv8).",
+          "Exploring the intersection of dance, embodiment, and data visualization. ",
+        ],
       },
     ],
   },
@@ -117,7 +134,6 @@ export const engineeringExperience = [
         title: "Web Developer",
         organization: "Giardina and French",
         years: "2021",
-
         description: [
           "Worked directly with non-technical stakeholders on design, workflow, and testing processes.",
 
