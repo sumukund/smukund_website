@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 </script>
 
 <svelte:head>
@@ -42,7 +41,7 @@
 			</button>
 
 			<button on:click={() => goto('/intersection')}>
-				Intersection
+				Research
 			</button>
 
 			<button on:click={() => goto('/about')}>

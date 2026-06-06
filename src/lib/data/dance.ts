@@ -1,5 +1,5 @@
 const imageModules = import.meta.glob(
-  "$lib/assets/images/*.{png,jpg,jpeg,svg,webp}",
+  "$lib/assets/images/dance_images/*.{png,jpg,jpeg,svg,webp}",
   { eager: true }
 );
 

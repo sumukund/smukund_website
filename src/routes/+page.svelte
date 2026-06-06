@@ -1,93 +1,153 @@
 <script lang="ts">
+    import { goto } from '$app/navigation';
+    import { homepage } from '$lib/data/homepage';
 </script>
 
 <svelte:head>
-	<title>Sudarsna Mukund</title>
+    <title>Sudarsna Mukund</title>
 </svelte:head>
 
+<!-- Full-screen background wrapper -->
+<div class="bg-container">
+    <img
+        src={homepage[0].image}
+        alt={homepage[0].title}
+        class="bg-image"
+    />
+</div>
+
 <div class="page">
+    <main>
+        <h1>
+            I am a 
+            <button class="interactive-word" on:click={() => goto('/dance')}>
+                performing artist
+            </button>
+            ,
+            <button class="interactive-word" on:click={() => goto('/engineering')}>
+                a computer scientist
+            </button>
+            ,
+            and a
+            <button class="interactive-word" on:click={() => goto('/intersection')}>
+                researcher.
+            </button>
+        </h1>
 
-	<main>
+        <p class="description">
+            My work explores performance, embodiment of data, computer vision,
+            and interactive technologies through both a rigorous artistic practice and strong fundamentals in computer science.
+        </p>
+    </main>
 
-		<h1>
-			I build systems across choreography,
-			machine learning, and immersive media.
-		</h1>
-
-		<p>
-			My work explores embodiment,
-			performance, computer vision,
-			and interactive technologies through
-			both engineering and artistic practice.
-		</p>
-        <p>
+    <footer>
+        <p class="agency-credit">
             Represented by Meredith Agency and Wehmann Agency
         </p>
-
-	</main>
-
+    </footer>
 </div>
 
 <style>
+    :global(body) {
+        margin: 0;
+        background: #f6f3ee;
+        color: #111;
+        font-family: 'IBM Plex Mono', monospace;
+        overflow-x: hidden;
+    }
 
-	:global(body) {
-		margin: 0;
-		background: #f6f3ee;
-		color: #111;
-		font-family: 'IBM Plex Mono', monospace;
-	}
+    /* Background image setup */
+    .bg-container {
+        position: fixed;
+        top: 2;
+        left: 3;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        overflow: hidden;
+        pointer-events: none; 
+    }
 
-	.page {
-		padding: 3rem;
-		max-width: 1200px;
-		margin: 0 auto;
-		min-height: 100vh;
-	}
+    .bg-image {
+        width: 100%;
+        object-fit: cover;
+        opacity: 0.25; /* Medium-low opacity ensures text remains fully readable */
+        filter: grayscale(15%) contrast(95%); /* Gives it an editorial, integrated feel */
+    }
 
-	header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 8rem;
-	}
+    /* Content Layout wrapper */
+    .page {
+        position: relative;
+        z-index: 2; /* Sits cleanly above the background photo */
+        padding: 1rem 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        min-height: 0vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        box-sizing: border-box;
+    }
 
-	.name {
-		font-family: 'Texturina', serif;
-		font-size: 1.5rem;
-	}
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 4rem;
+    }
 
-	nav {
-		display: flex;
-		gap: 2rem;
-	}
+    h1 {
+        font-family: 'Texturina', serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 300;
+        line-height: 1.25;
+        max-width: 1050px;
+        margin-bottom: 3rem;
+    }
 
-	button {
-		background: none;
-		border: none;
-		font: inherit;
-		cursor: pointer;
-		padding: 0;
-		opacity: 0.7;
-		transition: opacity 0.2s ease;
-	}
+    /* Interactive Hover Typography */
+    .interactive-word {
+        display: inline-block; /* Crucial for transform scales to track accurately */
+        background: none;
+        border: none;
+        font: inherit;
+        color: #111;
+        cursor: pointer;
+        padding: 0 0.2rem;
+        opacity: 0.9;
+        text-decoration: underline dotted 2px rgba(17, 17, 17, 0.3);
+        text-underline-offset: 6px;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    opacity 0.2s ease, 
+                    text-decoration-color 0.2s ease;
+    }
 
-	button:hover {
-		opacity: 1;
-	}
+    .interactive-word:hover {
+        opacity: 1;
+        text-decoration: underline solid 2px rgba(17, 17, 17, 1);
+        transform: scale(1.08); /* Magnifies the word cleanly on hover */
+    }
 
-	h1 {
-		font-family: 'Texturina', serif;
-		font-size: clamp(2.5rem, 6vw, 5rem);
-		font-weight: 300;
-		line-height: 1.1;
-		max-width: 900px;
-		margin-bottom: 2rem;
-	}
+    .description {
+        max-width: 550px;
+        line-height: 1.8;
+        font-size: 1.05rem;
+        color: #222;
+    }
 
-	p {
-		max-width: 600px;
-		line-height: 1.8;
-		font-size: 0.95rem;
-	}
+    /* Minimalist Footer */
+    footer {
+        margin-top: auto;
+    }
 
+    .agency-credit {
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #555;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: 1.5rem;
+        display: inline-block;
+    }
 </style>

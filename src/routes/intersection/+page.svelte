@@ -7,7 +7,7 @@
     <main>
         <!-- Academic Header Block -->
         <header class="project-header">
-            <h1>Embodied Geography: Processing Operation Metro Surge through Gesture and Sound</h1>
+            <h1>Geographic Memories: Processing Operation Metro Surge through Gesture and Sound</h1>
             
             <div class="authors">
                 <div class="author-group">
@@ -61,21 +61,28 @@
             <div class="two-column">
                 <div class="col">
                     <p>
-                        Understanding data is a difficult undertaking. Reading numbers and looking at charts can only divulge so much. Interactive data experiences employ creative methods to connect viewers with data on a more emotional level. Interactive data experiences are found in visual arts through forms like data sculptures and virtual reality data visualizations.
+                        Understanding data is a difficult undertaking. Reading numbers and looking at charts can only divulge so much. Interactive data experiences employ creative methods to connect viewers with data on a more emotional level. 
+						Interactive data experiences are found in visual arts through forms like data sculptures and virtual reality data visualizations.
                     </p>
                     <p>
-                        However, we can also think about interacting with data through dance. How does using dance as an interaction tool impact the understanding of data? How would we use performing art to embody and experience a complicated, emotional situation? More specifically, what does dance bring to data interaction?
+                        However, we can also think about interacting with data through dance. How does using dance as an interaction tool impact the understanding of data? 
+						How would we use performing art to embody and experience a complicated, emotional situation? 
+						More specifically, what does dance bring to data interaction?
                     </p>
                     <p>
-                        Minneapolis has been under ICE occupation since November 2025 and residents have been affected in ways that cannot be fully explained through traditional methods of data visualization. We wish to explore what dance movement brings to data interaction. Using motion tracking and sound averaging, this movement piece tells a personal and data-supported story about the ICE occupation in Minnesota.
+                        Minneapolis has been under ICE occupation since November 2025 and residents have been affected in ways that cannot be fully explained through traditional methods of data visualization. 
+						We wish to explore what dance movement brings to data interaction. 
+						Using motion tracking and sound averaging, this movement piece tells a personal and data-supported story about the ICE occupation in Minnesota.
                     </p>
                 </div>
                 <div class="col">
                     <p>
-                        This movement piece features locations from Minneapolis’s city map placed throughout the stage. The dancer interacts with the points through gestures to explore the emotional impact of this experience. The expressive nature of dance allows us to convey emotional interpretations of data in ways that standard data interaction systems cannot fully capture.
+                        This movement piece features locations from Minneapolis’s city map placed throughout the stage. 
+						The dancer interacts with the points through gestures to explore the emotional impact of this experience. The expressive nature of dance allows us to convey emotional interpretations of data in ways that standard data interaction systems cannot fully capture.
                     </p>
                     <p>
-                        In this paper, we explain the design process of creating the system, narrative, and compositions that comprise this piece. This work contributes to a growing collaboration between performing artists and data visualization researchers and explores ways we can interact with data creatively.
+                        In this paper, we explain the design process of creating the system, narrative, and compositions that comprise this piece. 
+						This work contributes to a growing collaboration between performing artists and data visualization researchers and explores ways we can interact with data creatively.
                     </p>
                 </div>
             </div>
@@ -84,18 +91,24 @@
         <section class="section-container technical">
             <h2>Reflections and Contributions</h2>
             <ul>
-                <li> Providing the dancer with the ability to embody computer data through performing art. This approach leverages the human ability to understand and process emotional events through gesture and movement.</li>
-                <li> Creating a design process to classify collected data into layers of emotion that correspond with existing information taxonomy models. In order to successfully interact with the system, data had to be processed into layers that could be revealed through gesture. Our motivation for splitting data into emotional layers was to ensure that technology was involved in the dramaturgy of the performance piece.</li>
+                <li> Providing the dancer with the ability to embody computer data through performing art. 
+					This approach leverages the human ability to understand and process emotional events through gesture and movement.</li>
+                <li> Creating a design process to classify collected data into layers of emotion that correspond with existing information taxonomy models. 
+					In order to successfully interact with the system, data had to be processed into layers that could be revealed through gesture. 
+					Our motivation for splitting data into emotional layers was to ensure that technology was involved in the dramaturgy of the performance piece.</li>
             </ul>
             <p class="summary-note">
-                Although data embodiment is not a new field, we have successfully integrated motion tracking and sound averaging into a working system that enables an artistic user interface. We hope that our system encourages future explorations with dance interaction with data. None of the techniques we have used are particularly novel, but the way we have combined them is to be in service to performing artists.
+                Although data embodiment is not a new field, we have successfully integrated motion tracking and sound averaging into a working system that enables an artistic user interface. 
+				We hope that our system encourages future explorations with dance interaction with data. 
+				None of the techniques we have used are particularly novel, but the way we have combined them is to be in service to performing artists.
             </p>
         </section>
 
         <section class="section-container technical">
             <h2>Technical Requirements</h2>
             <p>
-               This work is designed to be presented physically within the gallery space, while remaining adaptable for a virtual art exhibition layout. The installation requires a minimum spatial footprint of 20ft × 25ft × 8ft to accommodate motion tracking sensors and physical performance elements. 
+               This work is designed to be presented physically within the gallery space, while remaining adaptable for a virtual art exhibition layout. 
+			   The installation requires a minimum spatial footprint of 20ft × 25ft × 8ft to accommodate motion tracking sensors and physical performance elements. 
             </p>
             <blockquote>
                 <strong>Required Infrastructure:</strong> Tripod, ZED Stereo 2i Depth Camera, Stereo Speakers, 2 to 3 Stage Lights. 
@@ -105,10 +118,24 @@
         <section class="section-container resources">
             <h2>Supporting Material</h2>
             <div class="resource-links">
-                <a href="#images" class="resource-card">High-Res Images</a>
-                <a href="#audio" class="resource-card">Audio & Compositions</a>
+                <a href="#images" class="resource-card">Images</a>
+
+                <a href="#audio" class="resource-card">Audio Composition</a>
+				<a href="#dance" class="resource-card">Movement Composition</a>
                 <a href="#video" class="resource-card">Performance Video</a>
             </div>
+			<div id="images">
+
+			</div>
+			<div id="audio">
+
+			</div>
+			<div id="dance">
+
+			</div>
+			<div id="video" class="hero-image-wrapper">
+			<iframe src="https://www.youtube.com/embed/Pe3TKUT6NIk?si=eDWRGkOi3ld9Slgi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			</div>
         </section>
     </main>
 </div>
@@ -197,6 +224,13 @@
         width: 100%;
         max-height: 550px;
         object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+	.hero-image-wrapper iframe {
+		width: 100%;
+        height: 650px;
         border-radius: 4px;
         box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     }

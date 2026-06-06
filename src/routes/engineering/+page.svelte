@@ -13,7 +13,7 @@
 	</a>
 
 	<a href="#research">
-		Research
+		Lab
 	</a>
 
 	<a href="#industry">
@@ -71,7 +71,7 @@
 								target="_blank"
 								class="research-link"
 							>
-								View Research →
+								Lab Link →
 							</a>
 
 						{/if}
@@ -82,6 +82,20 @@
 
 								{#each entry.description as item}
 
+									<li>{item}</li>
+
+								{/each}
+
+							</ul>
+
+						{/if}
+
+					{#if entry.relevant_coursework}
+						<h4>Relevant Coursework</h4>
+
+							<ul>
+
+								{#each entry.relevant_coursework as item}
 									<li>{item}</li>
 
 								{/each}
@@ -182,7 +196,7 @@
 
 	.cv-section {
 
-		margin-bottom: 6rem;
+		margin-bottom: 3rem;
 	}
 
 	.cv-section h2 {
@@ -197,7 +211,7 @@
 
 		opacity: 0.5;
 
-		margin-bottom: 3rem;
+		margin-bottom: 2rem;
 	}
 
 	.entry {
