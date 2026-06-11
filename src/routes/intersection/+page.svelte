@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+  import { reveal } from '$lib/actions/reveal';
   import {
     intersectionCapstone,
     performanceImages,
@@ -10,7 +10,7 @@
 <div class="page">
   <main>
     <!-- Academic Header Block -->
-    <header class="project-header">
+    <header class="project-header" use:reveal>
       <h1>
         Geographic Memories: Processing Operation Metro Surge through Gesture
         and Sound
@@ -29,7 +29,7 @@
     </header>
 
     <!-- General Info Key-Value Row -->
-    <section class="metadata-grid">
+    <section class="metadata-grid" use:reveal={{ delay: 80 }}>
       <div><strong>Year:</strong> 2026</div>
       <div>
         <strong>Medium:</strong> Multimedia and performance art presentation
@@ -37,12 +37,16 @@
       <div>
         <strong>Dimensions:</strong> 20ft × 25ft × 8ft minimum room dimensions
       </div>
+      <div>
+    <a href="">Full Capstone Paper</a>
+      </div>
+
     </section>
 
     <hr class="divider" />
 
     <!-- Main Hero Image Area -->
-    <div class="hero-image-wrapper">
+    <div class="hero-image-wrapper" use:reveal>
       <img
         src={intersectionCapstone[0].image}
         alt={intersectionCapstone[0].title}
@@ -50,8 +54,7 @@
       <p class="caption">Figure 1: {intersectionCapstone[0].description}</p>
     </div>
 
-    <!-- Abstract / Overview Context Section -->
-    <section class="context-box">
+    <section class="context-box" use:reveal>
       <p>
         In December 2025, Operation Metro Surge began in earnest in Minneapolis.
         Immigration enforcement actions escalated with the deployment of 4,000
@@ -62,8 +65,7 @@
       </p>
     </section>
 
-    <!-- Main Hero Image Area -->
-    <div class="hero-image-wrapper">
+    <div class="hero-image-wrapper" use:reveal>
       <img
         src={intersectionCapstone[1].image}
         alt={intersectionCapstone[1].title}
@@ -71,8 +73,7 @@
       <p class="caption">Figure 1: {intersectionCapstone[1].description}</p>
     </div>
 
-    <!-- Two-Column Description Section -->
-    <section class="section-container">
+    <section class="section-container" use:reveal>
       <h2>Description & Motivation</h2>
       <div class="two-column">
         <div class="col">
@@ -120,7 +121,7 @@
       </div>
     </section>
 
-    <section class="section-container technical">
+    <section class="section-container technical" use:reveal>
       <h2>Reflections and Contributions</h2>
       <ul>
         <li>
@@ -147,7 +148,7 @@
       </p>
     </section>
 
-    <section class="section-container technical">
+    <section class="section-container technical" use:reveal>
       <h2>Technical Requirements</h2>
       <p>
         This work is designed to be presented physically within the gallery
@@ -162,7 +163,7 @@
       </blockquote>
     </section>
 
-    <section class="section-container resources">
+    <section class="section-container resources" use:reveal>
       <h2>Supporting Material</h2>
       <div class="resource-links">
         <a href="#images" class="resource-card">Images</a>
@@ -173,8 +174,8 @@
       </div>
 <div id="images" class="image-grid">
 <h2>January 2026 - June 2026: Development of Movements, System Design, and Process </h2>
-  {#each processImages as process_img}
-    <div class="card">
+  {#each processImages as process_img, i}
+    <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
       <img src={process_img.image} alt={process_img.title} />
       <div class="card-details">
         <span class="card-title">{process_img.title}</span>
@@ -185,8 +186,8 @@
 </div>
 <div id="images" class="image-grid">
 <h2>May 13, 2026: VirtuART; Regis Center for Art West</h2>
-  {#each performanceImages as perf_img}
-    <div class="card">
+  {#each performanceImages as perf_img, i}
+    <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
       <img src={perf_img.image} alt={perf_img.title} />
       <div class="card-details">
         <span class="card-title">{perf_img.title}</span>
@@ -295,8 +296,9 @@
 
   .hero-image-wrapper img {
     width: 100%;
-    max-height: 550px;
-    object-fit: cover;
+    max-height: none;
+    height: auto;
+    object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   }
@@ -446,13 +448,13 @@
     overflow: hidden;
   }
 
-  /* This forces the image to scale DOWN into the box without cropping */
   .card img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
+    width: 100%;
     height: auto;
-    object-fit: contain; /* Ensures the whole image stays visible */
+    object-fit: contain;
+    display: block;
+    border-radius: 2px;
+    background: #f0ebe1;
   }
 
   .card-title {

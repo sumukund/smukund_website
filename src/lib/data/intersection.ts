@@ -21,7 +21,7 @@ export const intersectionCapstone = [
     location: "Minneapolis, MN",
     description:
       "Illuminated average of ICE protest posters from South Minneapolis",
-    image: images.avg_3, // Changed from hardcoded string
+    image: images.avg_3, 
     size: "small",
   },
   {
@@ -31,14 +31,14 @@ export const intersectionCapstone = [
     image: images.avg_4,
     description:
       "Illuminated average of Alex Pretti's Memorial from 18th Ave and Nicollet Ave",
-    // Changed from hardcoded string
+    
     size: "small",
   },
   {
     title: "illuminated averages 5",
     year: "2026",
     location: "Minneapolis, MN",
-    image: images.avg_5, // Changed from hardcoded string
+    image: images.avg_5, 
     size: "small",
   },
 ];
@@ -48,24 +48,24 @@ export const performanceImages = [
     title: "performance 1",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 1",
-    image: images.perf_1, // Changed from hardcoded string
+    description: "dancer low to the ground",
+    image: images.perf_1, 
     size: "small",
   },
   {
     title: "performance 2",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 2",
-    image: images.perf_2, // Changed from hardcoded string
+    description: "dancer level high, with leg out",
+    image: images.perf_2, 
     size: "small",
   },
   {
     title: "performance 3",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 3",
-    image: images.perf_3, // Changed from hardcoded string
+    description: "aarush instrumenting the stereo sound",
+    image: images.perf_3, 
     size: "small",
   },
   {
@@ -73,7 +73,7 @@ export const performanceImages = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 4",
-    image: images.perf_4, // Changed from hardcoded string
+    image: images.perf_4, 
     size: "small",
   },
   {
@@ -81,7 +81,7 @@ export const performanceImages = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 5",
-    image: images.perf_5, // Changed from hardcoded string
+    image: images.perf_5, 
     size: "small",
   }
 ];
@@ -92,7 +92,7 @@ export const processImages = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 1",
-    image: images.process_3, // Changed from hardcoded string
+    image: images.process_3, 
     size: "small",
   },
   {
@@ -100,7 +100,7 @@ export const processImages = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 2",
-    image: images.process_4, // Changed from hardcoded string
+    image: images.process_4, 
     size: "small",
   },
   {
@@ -108,7 +108,7 @@ export const processImages = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 3",
-    image: images.process_5, // Changed from hardcoded string
+    image: images.process_5, 
     size: "small",
   },
   {
@@ -116,7 +116,7 @@ export const processImages = [
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 4",
-    image: images.room_setup, // Changed from hardcoded string
+    image: images.room_setup, 
     size: "small",
   }
 ];
