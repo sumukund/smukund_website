@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { homepage } from '$lib/data/homepage';
+	import { homepage } from '$lib/data/homepage';
+	import { reveal } from '$lib/actions/reveal';
 </script>
 
 <svelte:head>
@@ -9,7 +10,7 @@
 <div class="page">
     <main class="about-grid">
         <!-- Left Column: Biography Narrative -->
-        <section class="bio-column">
+        <section class="bio-column" use:reveal>
             <h1 class="title">About</h1>
             <p class="bio-text">
                 Sudarsna Mukund (she/they) is a Tamil multidisciplinary performing artist and computer vision engineer. 
