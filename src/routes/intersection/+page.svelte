@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { reveal } from '$lib/actions/reveal';
+  import { reveal } from "$lib/actions/reveal";
   import {
     intersectionCapstone,
     performanceImages,
-    processImages
+    processImages,
   } from "$lib/data/intersection";
 </script>
 
@@ -12,8 +12,8 @@
     <!-- Academic Header Block -->
     <header class="project-header" use:reveal>
       <h1>
-        Geographic Memories: Processing Operation Metro Surge through Gesture
-        and Sound
+        Embodied Geography: Processing Operation Metro Surge through Gesture and
+        Sound
       </h1>
 
       <div class="authors">
@@ -32,15 +32,12 @@
     <section class="metadata-grid" use:reveal={{ delay: 80 }}>
       <div><strong>Year:</strong> 2026</div>
       <div>
-        <strong>Medium:</strong> Multimedia and performance art presentation
+        <strong>Medium:</strong> movement and data driven audio and visual interactive
+        performance
       </div>
       <div>
-        <strong>Dimensions:</strong> 20ft × 25ft × 8ft minimum room dimensions
+        <strong>Duration:</strong> 15 minutes
       </div>
-      <div>
-    <a href="">Full Capstone Paper</a>
-      </div>
-
     </section>
 
     <hr class="divider" />
@@ -56,12 +53,13 @@
 
     <section class="context-box" use:reveal>
       <p>
-        In December 2025, Operation Metro Surge began in earnest in Minneapolis.
-        Immigration enforcement actions escalated with the deployment of 4,000
-        ICE agents to the Twin Cities and rural Minnesota. ICE occupation in the
-        Twin Cities has affected both documented and undocumented people.
-        Innocent civilians have been detained by ICE agents and subjected to
-        unlawful and unconstitutional actions.
+In December 2025, Operation Metro Surge began in
+            Minneapolis. Immigration enforcement actions escalated with
+            deployment of 4,000 ICE agents to the Twin Cities and rural
+            Minnesota. ICE occupation in the Twin Cities has affected both
+            documented and undocumented people. This activity culminated in the
+            death of two residents of Minneapolis, Renee Nicole Good and Alex
+            Pretti.
       </p>
     </section>
 
@@ -78,85 +76,88 @@
       <div class="two-column">
         <div class="col">
           <p>
-            Understanding data is a difficult undertaking. Reading numbers and
-            looking at charts can only divulge so much. Interactive data
-            experiences employ creative methods to connect viewers with data on
-            a more emotional level. Interactive data experiences are found in
-            visual arts through forms like data sculptures and virtual reality
-            data visualizations.
+            Embodied Geography is a contemporary dance and sound performance
+            exploring emotional responses to Operation Metro Surge using ideas
+            of data embodiment. We explored our personal recollection of the
+            experience of being a Minneapolis resident during the 2025-2026 ICE
+            occupation. This performance originated out of a desire to share the
+            emotional data from this experience ethically and with respect to
+            the affected. As an alternative to passive observation, we embody
+            our experiences as data into a performance that audiences can
+            connect with viscerally.
           </p>
           <p>
-            However, we can also think about interacting with data through
-            dance. How does using dance as an interaction tool impact the
-            understanding of data? How would we use performing art to embody and
-            experience a complicated, emotional situation? More specifically,
-            what does dance bring to data interaction?
-          </p>
-          <p>
-            Minneapolis has been under ICE occupation since November 2025 and
-            residents have been affected in ways that cannot be fully explained
-            through traditional methods of data visualization. We wish to
-            explore what dance movement brings to data interaction. Using motion
-            tracking and sound averaging, this movement piece tells a personal
-            and data-supported story about the ICE occupation in Minnesota.
+          This performance is a student-led artistic effort. We approached the
+            creation of this work from our background studying computer science
+            and visualization, but also from our artistic experience. Allowing
+            students with a mixed technological and art background to speak from
+            firsthand experience, with the support of our lab, amplifies that
+            perspective both on campus and to other students in the wider
+            visualization space.
           </p>
         </div>
         <div class="col">
           <p>
-            This movement piece features locations from Minneapolis’s city map
-            placed throughout the stage. The dancer interacts with the points
-            through gestures to explore the emotional impact of this experience.
-            The expressive nature of dance allows us to convey emotional
-            interpretations of data in ways that standard data interaction
-            systems cannot fully capture.
-          </p>
-          <p>
-            In this paper, we explain the design process of creating the system,
-            narrative, and compositions that comprise this piece. This work
-            contributes to a growing collaboration between performing artists
-            and data visualization researchers and explores ways we can interact
-            with data creatively.
+ This performance authentically gives a voice to
+            students within our community, those grounded squarely in the center
+            of this occupation, and allows others to witness our resilience. As
+            both witnesses to and subjects of the brutality and emotional
+            devastation that ICE caused in Minneapolis, we sought to amplify our
+            experiences with the design, artistic creativity, and interactivity
+            of our data visualization. Using music and dance, mediums deeply
+            intertwined with emotions, to represent and share our emotional
+            reaction to the events of the ICE occupation challenges the
+            assumption that data visualization needs to be inherently objective
+            in order to be impactful.
           </p>
         </div>
       </div>
     </section>
 
     <section class="section-container technical" use:reveal>
-      <h2>Reflections and Contributions</h2>
+      <h2>Information Taxonomy, Design Process</h2>
+      <p>
+        Using our collected data, we used traditional methods for parsing and
+        displaying data to drive our interaction design. We used the information
+        taxonomy model outlined in Ben Schneiderman’s “The Eyes Have It” to
+        create our data interaction model to uncover layers of information:
+      </p>
       <ul>
         <li>
-          Providing the dancer with the ability to embody computer data through
-          performing art. This approach leverages the human ability to
-          understand and process emotional events through gesture and movement.
+          Dancer position in the room maps to overview - seeing the whole
+          dataset at once
         </li>
         <li>
-          Creating a design process to classify collected data into layers of
-          emotion that correspond with existing information taxonomy models. In
-          order to successfully interact with the system, data had to be
-          processed into layers that could be revealed through gesture. Our
-          motivation for splitting data into emotional layers was to ensure that
-          technology was involved in the dramaturgy of the performance piece.
+          Dancer position into the defined light circles maps to zoom and
+          filter- a smaller subset of the data
+        </li>
+        <li>
+          Dancer hand gesture and distance maps to details on demand - one
+          datapoint, with representative movement through gesture, pulls up a
+          specific detail
+        </li>
+        <li>
+          Dancer position maps to filtering- irrelevant areas of the space are
+          not revealed to the dancer because they are outside the interaction
+          threshold
         </li>
       </ul>
       <p class="summary-note">
-        Although data embodiment is not a new field, we have successfully
-        integrated motion tracking and sound averaging into a working system
-        that enables an artistic user interface. We hope that our system
-        encourages future explorations with dance interaction with data. None of
-        the techniques we have used are particularly novel, but the way we have
-        combined them is to be in service to performing artists.
+          Working from an artistic approach informed our design process to
+          classify collected data into layers of emotion that correspond with
+          existing information taxonomy models. In order for a dancer to
+          successfully interact with the system, data had to be processed into
+          layers that could be revealed through gesture. Using dance movements
+          as the main interaction method provides a different dimension to
+          experience data by using the expressivity of the human body as a tool
+          for data understanding. This ensured that technology was involved in
+          the dramaturgy of the performance piece.
       </p>
     </section>
 
     <section class="section-container technical" use:reveal>
       <h2>Technical Requirements</h2>
-      <p>
-        This work is designed to be presented physically within the gallery
-        space, while remaining adaptable for a virtual art exhibition layout.
-        The installation requires a minimum spatial footprint of 20ft × 25ft ×
-        8ft to accommodate motion tracking sensors and physical performance
-        elements.
-      </p>
+      <p></p>
       <blockquote>
         <strong>Required Infrastructure:</strong> Tripod, ZED Stereo 2i Depth Camera,
         Stereo Speakers, 2 to 3 Stage Lights.
@@ -172,35 +173,39 @@
         <a href="#dance" class="resource-card">Movement Composition</a>
         <a href="#video" class="resource-card">Performance Video</a>
       </div>
-<div id="images" class="image-grid">
-<h2>January 2026 - June 2026: Development of Movements, System Design, and Process </h2>
-  {#each processImages as process_img, i}
-    <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
-      <img src={process_img.image} alt={process_img.title} />
-      <div class="card-details">
-        <span class="card-title">{process_img.title}</span>
-        <p class="card-desc">{process_img.description}</p>
+      <div id="images" class="image-grid">
+        <h2>
+          January 2026 - June 2026: Development of Movements, System Design, and
+          Process
+        </h2>
+        {#each processImages as process_img, i}
+          <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
+            <img src={process_img.image} alt={process_img.title} />
+            <div class="card-details">
+              <span class="card-title">{process_img.title}</span>
+              <p class="card-desc">{process_img.description}</p>
+            </div>
+          </div>
+        {/each}
       </div>
-    </div>
-  {/each}
-</div>
-<div id="images" class="image-grid">
-<h2>May 13, 2026: VirtuART; Regis Center for Art West</h2>
-  {#each performanceImages as perf_img, i}
-    <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
-      <img src={perf_img.image} alt={perf_img.title} />
-      <div class="card-details">
-        <span class="card-title">{perf_img.title}</span>
-        <p class="card-desc">{perf_img.description}</p>
+      <div id="images" class="image-grid">
+        <h2>May 13, 2026: VirtuART; Regis Center for Art West, UMN, Minneapolis, MN</h2>
+        {#each performanceImages as perf_img, i}
+          <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
+            <img src={perf_img.image} alt={perf_img.title} />
+            <div class="card-details">
+              <span class="card-title">{perf_img.title}</span>
+              <p class="card-desc">{perf_img.description}</p>
+            </div>
+          </div>
+        {/each}
       </div>
-    </div>
-  {/each}
-</div>
       <div id="audio"></div>
       <div id="dance"></div>
       <div id="video" class="hero-image-wrapper">
-      <h2>May 13, 2026: VirtuART; Regis Center for Art West</h2>
-      <h3>Performance Video</h3>
+        <h2>May 13, 2026: VirtuART; Regis Center for Art West, UMN, Minneapolis, MN</h2>
+        <h3>Performance Video</h3>
+        <p class="summary-note"> In-process showing of the system and the performance. </p>
         <iframe
           src="https://www.youtube.com/embed/Pe3TKUT6NIk?si=eDWRGkOi3ld9Slgi"
           title="YouTube video player"
@@ -418,7 +423,7 @@
     border-color: #111;
   }
 
-.image-grid {
+  .image-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
@@ -433,7 +438,7 @@
     background: #fff;
     padding: 1rem;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   /* This limits how big the image area can get */
@@ -475,5 +480,4 @@
       grid-template-columns: 1fr;
     }
   }
-
 </style>

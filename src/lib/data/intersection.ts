@@ -45,7 +45,7 @@ export const intersectionCapstone = [
 
 export const performanceImages = [
   {
-    title: "performance 1",
+    title: "beginning the piece",
     year: "2026",
     location: "Minneapolis, MN",
     description: "dancer low to the ground",
@@ -53,7 +53,7 @@ export const performanceImages = [
     size: "small",
   },
   {
-    title: "performance 2",
+    title: "developing tension with the audience",
     year: "2026",
     location: "Minneapolis, MN",
     description: "dancer level high, with leg out",
@@ -61,7 +61,7 @@ export const performanceImages = [
     size: "small",
   },
   {
-    title: "performance 3",
+    title: "implementing the sound system",
     year: "2026",
     location: "Minneapolis, MN",
     description: "aarush instrumenting the stereo sound",
@@ -69,7 +69,7 @@ export const performanceImages = [
     size: "small",
   },
   {
-    title: "performance 4",
+    title: "performance",
     year: "2026",
     location: "Minneapolis, MN",
     description: "performance 4",
@@ -77,10 +77,10 @@ export const performanceImages = [
     size: "small",
   },
   {
-    title: "performance 5",
+    title: "scenes",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 5",
+    description: "",
     image: images.perf_5, 
     size: "small",
   }
@@ -88,26 +88,26 @@ export const performanceImages = [
 
 export const processImages = [
   {
-    title: "performance 1",
+    title: "in process",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 1",
+    description: "",
     image: images.process_3, 
     size: "small",
   },
   {
-    title: "performance 2",
+    title: "developing gestures",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 2",
+    description: "",
     image: images.process_4, 
     size: "small",
   },
   {
-    title: "performance 3",
+    title: "finding meaning through gesture",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 3",
+    description: "",
     image: images.process_5, 
     size: "small",
   },
@@ -115,7 +115,7 @@ export const processImages = [
     title: "Room Setup",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "performance 4",
+    description: "lighting configuration at ArTeS studio, UMN",
     image: images.room_setup, 
     size: "small",
   }
