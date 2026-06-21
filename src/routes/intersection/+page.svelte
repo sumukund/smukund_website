@@ -71,7 +71,59 @@ In December 2025, Operation Metro Surge began in
       <p class="caption">Figure 1: {intersectionCapstone[1].description}</p>
     </div>
 
-    <section class="section-container" use:reveal>
+    <section class="section-container resources" use:reveal>
+      <h2>Supporting Material</h2>
+      <div class="resource-links">
+        <a href="#images" class="resource-card">Images</a>
+
+        <a href="#audio" class="resource-card">Audio Composition</a>
+        <a href="#dance" class="resource-card">Movement Composition</a>
+        <a href="#video" class="resource-card">Performance Video</a>
+      </div>
+      <div id="images" class="image-grid">
+        <h2>
+          January 2026 - June 2026: Development of Movements, System Design, and
+          Process
+        </h2>
+        {#each processImages as process_img, i}
+          <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
+            <img src={process_img.image} alt={process_img.title} />
+            <div class="card-details">
+              <span class="card-title">{process_img.title}</span>
+              <p class="card-desc">{process_img.description}</p>
+            </div>
+          </div>
+        {/each}
+      </div>
+      <div id="images" class="image-grid">
+        <h2>May 13, 2026: VirtuART; Regis Center for Art West, UMN, Minneapolis, MN</h2>
+        {#each performanceImages as perf_img, i}
+          <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
+            <img src={perf_img.image} alt={perf_img.title} />
+            <div class="card-details">
+              <span class="card-title">{perf_img.title}</span>
+              <p class="card-desc">{perf_img.description}</p>
+            </div>
+          </div>
+        {/each}
+      </div>
+      <div id="audio"></div>
+      <div id="dance"></div>
+      <div id="video" class="hero-image-wrapper">
+        <h2>May 13, 2026: VirtuART; Regis Center for Art West, UMN, Minneapolis, MN</h2>
+        <h3>Performance Video</h3>
+        <p class="summary-note"> In-process showing of the system and the performance. </p>
+        <iframe
+          src="https://www.youtube.com/embed/Pe3TKUT6NIk?si=eDWRGkOi3ld9Slgi"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+    <!-- <section class="section-container" use:reveal>
       <h2>Description & Motivation</h2>
       <div class="two-column">
         <div class="col">
@@ -153,7 +205,7 @@ In December 2025, Operation Metro Surge began in
           for data understanding. This ensured that technology was involved in
           the dramaturgy of the performance piece.
       </p>
-    </section>
+    </section> -->
 
     <section class="section-container technical" use:reveal>
       <h2>Technical Requirements</h2>
@@ -164,58 +216,6 @@ In December 2025, Operation Metro Surge began in
       </blockquote>
     </section>
 
-    <section class="section-container resources" use:reveal>
-      <h2>Supporting Material</h2>
-      <div class="resource-links">
-        <a href="#images" class="resource-card">Images</a>
-
-        <a href="#audio" class="resource-card">Audio Composition</a>
-        <a href="#dance" class="resource-card">Movement Composition</a>
-        <a href="#video" class="resource-card">Performance Video</a>
-      </div>
-      <div id="images" class="image-grid">
-        <h2>
-          January 2026 - June 2026: Development of Movements, System Design, and
-          Process
-        </h2>
-        {#each processImages as process_img, i}
-          <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
-            <img src={process_img.image} alt={process_img.title} />
-            <div class="card-details">
-              <span class="card-title">{process_img.title}</span>
-              <p class="card-desc">{process_img.description}</p>
-            </div>
-          </div>
-        {/each}
-      </div>
-      <div id="images" class="image-grid">
-        <h2>May 13, 2026: VirtuART; Regis Center for Art West, UMN, Minneapolis, MN</h2>
-        {#each performanceImages as perf_img, i}
-          <div class="card" use:reveal={{ delay: (i % 3) * 60 }}>
-            <img src={perf_img.image} alt={perf_img.title} />
-            <div class="card-details">
-              <span class="card-title">{perf_img.title}</span>
-              <p class="card-desc">{perf_img.description}</p>
-            </div>
-          </div>
-        {/each}
-      </div>
-      <div id="audio"></div>
-      <div id="dance"></div>
-      <div id="video" class="hero-image-wrapper">
-        <h2>May 13, 2026: VirtuART; Regis Center for Art West, UMN, Minneapolis, MN</h2>
-        <h3>Performance Video</h3>
-        <p class="summary-note"> In-process showing of the system and the performance. </p>
-        <iframe
-          src="https://www.youtube.com/embed/Pe3TKUT6NIk?si=eDWRGkOi3ld9Slgi"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </section>
   </main>
 </div>
 
