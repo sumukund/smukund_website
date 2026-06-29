@@ -30,22 +30,14 @@ export const intersectionCapstone = [
     size: "small",
   },
   {
-    title: "illuminated averages 4",
+    title: "Performance demonstration",
     year: "2026",
     location: "Minneapolis, MN",
-    image: images.avg_4,
+    image: images.background_2,
     description:
-      "Illuminated average of Alex Pretti's Memorial from 18th Ave and Nicollet Ave",
-    
+"Performing the system in space."  ,  
     size: "small",
-  },
-  {
-    title: "illuminated averages 5",
-    year: "2026",
-    location: "Minneapolis, MN",
-    image: images.avg_5, 
-    size: "small",
-  },
+  }
 ];
 
 export const timeBombDanceImages = [
@@ -79,6 +71,41 @@ export const timeBombDanceImages = [
     location: "Minneapolis, MN",
     description: "Averaged gesture.",
     image: images.perf_4, 
+    size: "small",
+  },
+];
+
+export const hennepinCountyDanceImages = [
+  {
+    title: "Overview",
+    year: "2026",
+    location: "Minneapolis, MN",
+    description: "Surveying the space",
+    image: images.perf_5,
+    size: "small",
+  },
+  {
+    title: "Zoom and Filter",
+    year: "2026",
+    location: "Minneapolis, MN",
+    description: "dancer level high, with leg out. Accessing the point.",
+    image: images.perf_6,
+    size: "small",
+  },
+  {
+    title: "Details on Demand",
+    year: "2026",
+    location: "Minneapolis, MN",
+    description: "low to the ground. Accessing detail layer.",
+    image: images.perf_7,
+    size: "small",
+  },
+  {
+    title: "Average",
+    year: "2026",
+    location: "Minneapolis, MN",
+    description: "Averaged gesture.",
+    image: images.perf_8,
     size: "small",
   },
 ];
@@ -299,8 +326,8 @@ export type StoryStep = {
   id: string;
   section: StorySection;
   sectionLabel?: string;
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
   visual: "image" | "map" | "video" | "program-notes";
   image?: string;
   imageAlt?: string;
@@ -412,9 +439,6 @@ export const storySteps: StoryStep[] = [
   {
     id: "geography-sound-sites2",
     section: "geography",
-    title: "Sound sites",
-    content:
-      "The first two locations hold the source recordings and composed sound materials. Play the recordings to demonstrate how movements map to data type taxonomy [Shneiderman, B. (2003). The eyes have it: A task by data type taxonomy for information visualizations.] ",
     visual: "map",
     mapFeatureId: 2,
     audioLocationSlugs: ["hennepin-county-government-center"],
@@ -429,15 +453,16 @@ export const storySteps: StoryStep[] = [
   },
 ];
 
-export const imageGallerySteps = [...timeBombDanceImages].map(
-  (img, i) => ({
-    id: `playback-image-${i}`,
-    section: "geography" as const,
-    title: img.title,
-    content: img.description,
-    visual: "image" as const,
-    image: img.image,
-    imageAlt: img.title,
-    caption: img.description || undefined,
-  })
-);
+export const imageGallerySteps = [
+  ...timeBombDanceImages,
+  ...hennepinCountyDanceImages,
+].map((img, i) => ({
+  id: `playback-image-${i}`,
+  section: "geography" as const,
+  title: img.title,
+  content: img.description,
+  visual: "image" as const,
+  image: img.image,
+  imageAlt: img.title,
+  caption: img.description || undefined,
+}));
