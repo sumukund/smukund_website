@@ -407,9 +407,17 @@ export const storySteps: StoryStep[] = [
       "The first two locations hold the source recordings and composed sound materials. Play the recordings to demonstrate how movements map to data type taxonomy [Shneiderman, B. (2003). The eyes have it: A task by data type taxonomy for information visualizations.] ",
     visual: "map",
     mapFeatureId: 1,
-    audioLocationSlugs: [
-      "time-bomb-vintage",
-    ],
+    audioLocationSlugs: ["time-bomb-vintage"],
+  },
+  {
+    id: "geography-sound-sites2",
+    section: "geography",
+    title: "Sound sites",
+    content:
+      "The first two locations hold the source recordings and composed sound materials. Play the recordings to demonstrate how movements map to data type taxonomy [Shneiderman, B. (2003). The eyes have it: A task by data type taxonomy for information visualizations.] ",
+    visual: "map",
+    mapFeatureId: 2,
+    audioLocationSlugs: ["hennepin-county-government-center"],
   },
   {
     id: "video",
