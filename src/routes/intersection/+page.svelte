@@ -4,20 +4,107 @@
   import IntersectionMap from "$lib/components/IntersectionMap.svelte";
   import {
     audioLocations,
+    imageGallerySteps,
     mapGeoJson,
     programNotes,
-    storySteps,
+    storySteps
   } from "$lib/data/intersection";
 
   let activeIndex = $state(0);
   let scrollyStepsEl = $state<HTMLElement | undefined>();
+  let videoSectionEl = $state<HTMLElement | undefined>();
+  let stepProgress = $state(0);
+  let isAudioPlaying = $state(false);
+  let activePlaybackImageIndex = $state(0);
+  let playingAudioStepId = $state<string | null>(null);
+  let hoveredMapFeatureId = $state<number | null>(null);
 
   const activeStep = $derived(storySteps[activeIndex]);
+  const scrollyStorySteps = $derived(
+    storySteps.filter((step) => step.section !== "video")
+  );
+  const videoStep = $derived(storySteps.find((step) => step.section === "video"));
+  const videoStepIndex = $derived(
+    storySteps.findIndex((step) => step.section === "video")
+  );
   const activeAudioLocation = $derived(
     activeStep.audioLocationSlug
       ? audioLocations.find((loc) => loc.slug === activeStep.audioLocationSlug)
       : undefined
   );
+  const activeAudioLocations = $derived(
+    activeStep.audioLocationSlugs
+      ? activeStep.audioLocationSlugs
+          .map((slug) => audioLocations.find((loc) => loc.slug === slug))
+          .filter((loc): loc is (typeof audioLocations)[number] => loc !== undefined)
+      : activeAudioLocation
+        ? [activeAudioLocation]
+        : []
+  );
+  const galleryItems = $derived(
+    imageGallerySteps.map((step) => ({
+      id: step.id,
+      image: step.image!,
+      imageAlt: step.imageAlt ?? step.title,
+      title: step.title,
+      caption: step.caption,
+    }))
+  );
+  const activePlaybackImage = $derived(
+    galleryItems[activePlaybackImageIndex % Math.max(galleryItems.length, 1)]
+  );
+  const activeProgramNoteImage = $derived(
+    activeStep.section === "program-notes"
+      ? (programNotes.images[activeStep.programNoteImageIndex ?? 0] ?? null)
+      : null
+  );
+  const showPlaybackImage = $derived(
+    !!(
+      activeStep.section === "geography" &&
+      activeStep.id === playingAudioStepId &&
+      isAudioPlaying &&
+      activePlaybackImage
+    )
+  );
+  const activeHoverPoint = $derived(
+    activeStep.mapPoints?.find((point) => point.featureId === hoveredMapFeatureId) ??
+      activeStep.mapPoints?.[0] ??
+      null
+  );
+  const activeMapFeatureId = $derived(
+    activeStep.id === "geography-remaining-points"
+      ? (hoveredMapFeatureId ?? null)
+      : (activeStep.mapFeatureId ?? null)
+  );
+
+  // Derived animation values from stepProgress
+  // Caption fades out in the first half of scroll (0→0.5 maps to opacity 1→0)
+  const captionOpacity = $derived(
+    activeStep.section === "background" && activeStep.poem
+      ? Math.max(0, 1 - stepProgress * 2.2)
+      : 1
+  );
+
+    // image size increases during second half
+  const imageSize = $derived(
+    activeStep.section === "background" && activeStep.image
+      ? Math.max(0, Math.min(1, (stepProgress - 0.3) * 2.5))
+      : 0
+  );
+
+  $effect(() => {
+    if (
+      activeStep.section !== "geography" ||
+      activeStep.id !== playingAudioStepId
+    ) {
+      isAudioPlaying = false;
+      playingAudioStepId = null;
+    }
+
+    if (activeStep.id !== "geography-remaining-points") {
+      hoveredMapFeatureId = null;
+    }
+  });
 
   onMount(() => {
     if (!scrollyStepsEl) return;
@@ -35,6 +122,8 @@
             );
             if (!Number.isNaN(index)) {
               activeIndex = index;
+              stepProgress = 0; // reset progress on step change
+
             }
           }
         });
@@ -43,11 +132,43 @@
     );
 
     stepElements.forEach((el) => observer.observe(el));
+    if (videoSectionEl) observer.observe(videoSectionEl);
 
-    return () => observer.disconnect();
+    const updateStepProgress = () => {
+      if (!scrollyStepsEl) return;
+      const activeEl = scrollyStepsEl.querySelector<HTMLElement>(
+        `[data-step-index="${activeIndex}"]`
+      );
+      if (!activeEl) return;
+
+      // Only animate progress for background steps with poems
+      const step = storySteps[activeIndex];
+      if (step.section !== "background" || !step.poem) {
+        stepProgress = 0;
+        return;
+      }
+
+      const rect = activeEl.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 0 when element top is at bottom of viewport, 1 when element bottom is at top
+      const raw = (vh - rect.top) / (rect.height + vh);
+      stepProgress = Math.max(0, Math.min(1, raw));
+    };
+
+    window.addEventListener("scroll", updateStepProgress, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", updateStepProgress);
+    };
   });
 
   function scrollToSection(section: string) {
+    if (section === "video") {
+      videoSectionEl?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
     const index = storySteps.findIndex((s) => s.section === section);
     if (index < 0 || !scrollyStepsEl) return;
     const target = scrollyStepsEl.querySelector<HTMLElement>(
@@ -55,10 +176,34 @@
     );
     target?.scrollIntoView({ behavior: "smooth" });
   }
+
+  function handleAudioPlay(event: Event, trackIndex: number, locationSlug: string) {
+    if (!galleryItems.length) return;
+
+    const audio = event.currentTarget as HTMLAudioElement;
+    document.querySelectorAll<HTMLAudioElement>("audio").forEach((el) => {
+      if (el !== audio) el.pause();
+    });
+
+    const locationIndex = audioLocations.findIndex(
+      (location) => location.slug === locationSlug
+    );
+    const baseIndex = Math.max(locationIndex, 0) * 4;
+    activePlaybackImageIndex = (baseIndex + trackIndex) % galleryItems.length;
+    playingAudioStepId = activeStep.id;
+    isAudioPlaying = true;
+  }
+
+  function handleAudioPause(event: Event) {
+    const audio = event.currentTarget as HTMLAudioElement;
+    if (audio.currentTime < audio.duration) return;
+    isAudioPlaying = false;
+    playingAudioStepId = null;
+  }
 </script>
 
 <svelte:head>
-  <title>Embodied Geography | Sudarsna Mukund</title>
+  <title>Embodied Geography</title>
 </svelte:head>
 
 <div class="page">
@@ -70,11 +215,11 @@
 
     <div class="authors">
       <div class="author-group">
-        <span class="author-name">Sudarsna Mukund</span>
+        <span class="author-name">Sudarsna Mukund, University of Minnesota</span>
         <span class="author-role">Dancer, Technician</span>
       </div>
       <div class="author-group">
-        <span class="author-name">Aarush Bothra</span>
+        <span class="author-name">Aarush Bothra, University of Minnesota</span>
         <span class="author-role">Musician, Composer, Technician</span>
       </div>
     </div>
@@ -83,19 +228,25 @@
   <section class="metadata-grid" use:reveal={{ delay: 80 }}>
     <div><strong>Year:</strong> 2026</div>
     <div>
-      <strong>Medium:</strong> movement and data driven audio and visual
+      <strong>Medium:</strong> movement and sound
       interactive performance
     </div>
     <div><strong>Duration:</strong> 15 minutes</div>
+    <div><a href="https://ivlab.cs.umn.edu/">University of Minnesota, Interactive Visualization Lab </a></div>
+  </section>
+    <section class="acknowledgements" use:reveal={{ delay: 80 }}>
+    <div><strong>Acknowledgements:</strong> Thank you to Dr. Daniel Keefe and members of the Interactive Visualization Lab at the University of Minnesota, the University of Minnesota ArTeS Collaborative Studio and Diane Willow for the use of ArTeS Studio for development,  Dr. Qianwen Wang,  Professor jess pretty and the University of Minnesota Theater and Dance Department for the guidance on gesture and movement.</div>
+    <div>
+      
+    </div>
   </section>
 
   <nav class="story-nav" aria-label="Story sections">
-    {#each ["Background", "Audio", "Images", "Program Notes", "Video"] as label, i}
+    {#each ["Background", "Program Notes", "Geography", "Video"] as label, i}
       {@const sectionIds = [
         "background",
-        "audio",
-        "images",
         "program-notes",
+        "geography",
         "video",
       ]}
       <button
@@ -110,39 +261,67 @@
   <section class="scrolly" aria-label="Project story">
     <div class="scrolly-graphic" aria-hidden="true">
       <div class="graphic-inner">
-        {#key activeStep.id}
+        {#key `${activeStep.id}-${showPlaybackImage ? activePlaybackImage?.id : "map"}`}
           <div class="graphic-panel">
-            {#if activeStep.visual === "map"}
+            {#if showPlaybackImage && activePlaybackImage}
+              <figure class="visual-figure playback-figure">
+                <img
+                  src={activePlaybackImage.image}
+                  alt={activePlaybackImage.imageAlt}
+                />
+                <figcaption>
+                  {activePlaybackImage.title}
+                  {#if activePlaybackImage.caption}
+                    <span>{activePlaybackImage.caption}</span>
+                  {/if}
+                </figcaption>
+              </figure>
+            {:else if activeStep.visual === "map"}
               <IntersectionMap
                 geojson={mapGeoJson}
-                activeFeatureId={activeStep.mapFeatureId ?? null}
+                activeFeatureId={activeMapFeatureId}
               />
-            {:else if activeStep.visual === "video"}
-              <div class="video-frame">
-                <iframe
-                  src="https://www.youtube.com/embed/Pe3TKUT6NIk?si=eDWRGkOi3ld9Slgi"
-                  title="Embodied Geography performance video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen
-                ></iframe>
-              </div>
             {:else if activeStep.visual === "program-notes"}
-              <figure class="visual-figure">
-                <img
-                  src={programNotes.image}
-                  alt="Program notes for Embodied Geography"
-                />
-                {#if activeStep.caption}
-                  <figcaption>{activeStep.caption}</figcaption>
-                {/if}
-              </figure>
+              {#if activeStep.reverseLayout}
+                <div class="program-note-poem">
+                  <h2>{activeStep.title}</h2>
+                  <p>{activeStep.poem}</p>
+                </div>
+              {:else}
+                <figure class="program-note-image">
+                  {#if activeProgramNoteImage}
+                    <img
+                      src={activeProgramNoteImage.image}
+                      alt={activeProgramNoteImage.alt}
+                    />
+                    {#if activeProgramNoteImage.caption}
+                      <figcaption>{activeProgramNoteImage.caption}</figcaption>
+                    {/if}
+                  {:else}
+                    <div class="program-note-placeholder">
+                      <span>Image space</span>
+                    </div>
+                  {/if}
+                </figure>
+              {/if}
             {:else if activeStep.image}
               <figure class="visual-figure">
-                <img src={activeStep.image} alt={activeStep.imageAlt ?? ""} />
-                {#if activeStep.caption}
-                  <figcaption>{activeStep.caption}</figcaption>
-                {/if}
+                <div class="image-poem-wrapper">
+                  <img
+                    src={activeStep.image}
+                    style:width={`${80 + imageSize * 20}%`}
+                    alt={activeStep.imageAlt ?? ""}
+                  />
+
+                  {#if activeStep.caption}
+                    <figcaption
+                      class="caption-animated"
+                      style:opacity={captionOpacity}
+                    >
+                      {activeStep.caption}
+                    </figcaption>
+                  {/if}
+                </div>
               </figure>
             {/if}
           </div>
@@ -151,49 +330,144 @@
     </div>
 
     <div class="scrolly-steps" bind:this={scrollyStepsEl}>
-      {#each storySteps as step, index (step.id)}
+      {#each scrollyStorySteps as step (step.id)}
+        {@const index = storySteps.findIndex((storyStep) => storyStep.id === step.id)}
         <article
           class="step"
           class:active={activeIndex === index}
           data-step-index={index}
           id={step.section === "background" && index === 0
             ? "background"
-            : step.section === "audio" && step.sectionLabel
-              ? "audio"
-              : step.section === "images" && step.sectionLabel
-                ? "images"
-                : step.section === "program-notes"
-                  ? "program-notes"
+            : step.section === "program-notes" && step.sectionLabel
+              ? "program-notes"
+              : step.section === "geography" && step.sectionLabel
+                ? "geography"
                   : step.section === "video"
                     ? "video"
                     : undefined}
         >
-          {#if step.sectionLabel}
-            <p class="section-label">{step.sectionLabel}</p>
+
+          {#if step.section === "program-notes"}
+            <div
+              class="program-note-side"
+              class:image-side={step.reverseLayout}
+            >
+              {#if step.reverseLayout}
+                {@const noteImage = programNotes.images[step.programNoteImageIndex ?? 0] ?? null}
+                <figure class="program-note-image">
+                  {#if noteImage}
+                    <img src={noteImage.image} alt={noteImage.alt} />
+                    {#if noteImage.caption}
+                      <figcaption>{noteImage.caption}</figcaption>
+                    {/if}
+                  {:else}
+                    <div class="program-note-placeholder">
+                      <span>Image space</span>
+                    </div>
+                  {/if}
+                </figure>
+              {:else}
+                <div class="program-note-poem">
+                  <h2>{step.title}</h2>
+                  <p>{step.poem}</p>
+                </div>
+              {/if}
+            </div>
+          {:else}
+            <h2>{step.title}</h2>
+            <p class="step-content">{step.content}</p>
           {/if}
+          
+          {#if step.id === "geography-remaining-points" && step.mapPoints}
+            <div class="map-point-explorer">
+              <div class="map-point-list">
+                {#each step.mapPoints as point}
+                  <button
+                    type="button"
+                    class:active={activeHoverPoint?.featureId === point.featureId}
+                    onmouseenter={() => (hoveredMapFeatureId = point.featureId)}
+                    onfocus={() => (hoveredMapFeatureId = point.featureId)}
+                  >
+                    <span>{point.title}</span>
+                    {#if point.content}
+                      <small>{point.content}</small>
+                    {/if}
+                    
+                  </button>
+                {/each}
+              </div>
 
-          <h2>{step.title}</h2>
-          <p class="step-content">{step.content}</p>
-
-          {#if step.audioLocationSlug && activeAudioLocation && activeIndex === index}
+{#if activeHoverPoint}
+                <figure class="map-point-preview map-point-list">
+                  <img
+                    src={activeHoverPoint.image}
+                    alt={activeHoverPoint.imageAlt}
+                  />
+                </figure>
+              {/if}
+            </div>
+          {/if}
+          {#if step.audioLocationSlugs && activeAudioLocations.length && activeIndex === index}
             <div class="audio-tracks">
-              {#each activeAudioLocation.tracks as track}
-                <div class="audio-track">
-                  <div class="track-header">
-                    <span class="track-label">{track.label}</span>
-                    <p class="track-desc">{track.description}</p>
-                  </div>
-                  <audio controls preload="none" src={track.file}>
-                    <a href={track.file}>Download {track.label} audio</a>
-                  </audio>
+              {#each activeAudioLocations as location}
+                <div class="audio-location">
+                  <h3>{location.name}</h3>
+                  <p>{location.context}</p>
+                  {#each location.tracks as track, trackIndex}
+                    <div class="audio-track">
+                      <div class="track-header">
+                        <span class="track-label">{track.label}</span>
+                        <p class="track-desc">{track.description}</p>
+                      </div>
+                      <audio
+                        controls
+                        preload="none"
+                        src={track.file}
+                        onplay={(event) =>
+                          handleAudioPlay(event, trackIndex, location.slug)}
+                        onended={() => {
+                          isAudioPlaying = false;
+                          playingAudioStepId = null;
+                        }}
+                        onpause={handleAudioPause}
+                      >
+                        <a href={track.file}>Download {track.label} audio</a>
+                      </audio>
+                    </div>
+                  {/each}
                 </div>
               {/each}
             </div>
           {/if}
+
         </article>
       {/each}
     </div>
   </section>
+
+  {#if videoStep}
+    <section
+      class="video-section"
+      bind:this={videoSectionEl}
+      data-step-index={videoStepIndex}
+      id="video"
+      use:reveal
+    >
+      <div class="video-copy">
+        <h2>{videoStep.title}</h2>
+        <p>{videoStep.content}</p>
+      </div>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/Pe3TKUT6NIk?si=eDWRGkOi3ld9Slgi"
+          title="Embodied Geography performance video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+  {/if}
 </div>
 
 <style>
@@ -250,12 +524,21 @@
     border-bottom: 1px solid #ccc;
     margin-bottom: 1.5rem;
   }
+    .acknowledgements {
+    display: block;
+    font-style: italic;
+    gap: 1rem;
+    font-size: 0.9rem;
+    padding: 0 2rem 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
 
   .story-nav {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 1rem;
-    padding: 0 2rem 2.5rem;
+    padding: 1rem 2rem 2.5rem;
     position: sticky;
     top: 5.5rem;
     z-index: 10;
@@ -348,6 +631,136 @@
     text-align: center;
   }
 
+  .program-note-poem {
+    width: 100%;
+    overflow: none;
+    padding: 1.5rem;
+    border-left: 1px solid #cfc8ba;
+    background: rgba(255, 255, 255, 0.38);
+  }
+
+  .program-note-poem h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .program-note-poem p {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: "Texturina", Georgia, serif;
+    font-size: clamp(0.82rem, 1vw, 1rem);
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  .program-note-image {
+    margin: 0;
+    width: 100%;
+  }
+
+  .program-note-image img {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 12rem);
+    object-fit: contain;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .program-note-image figcaption {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.75rem;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .program-note-placeholder {
+    min-height: min(520px, calc(100vh - 12rem));
+    border: 1px dashed #bcb4a6;
+    border-radius: 4px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(232, 228, 220, 0.4)),
+      #eee9df;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .program-note-placeholder span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #766f64;
+  }
+
+  .program-note-side {
+    width: 100%;
+  }
+
+  .playback-figure img {
+    max-height: calc(100vh - 14rem);
+  }
+
+  .playback-figure figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .playback-figure figcaption span {
+    font-size: 0.78rem;
+    color: #666;
+  }
+
+  /* --- Image + poem wrapper: positions overlays relative to the image --- */
+  .image-poem-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  /* Caption fades out as the step scrolls — driven by captionOpacity derived value */
+  .caption-animated {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.75rem;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* Poem sits centred over the image, hidden until scroll brings it in */
+  .poem-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    padding: 1rem 2.5rem;
+    border-radius: 4px;
+    /* Subtle dark gradient so text is always legible over the photo */
+    background: linear-gradient(
+      160deg,
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(0, 0, 0, 0.42) 100%
+    );
+    pointer-events: none;
+  }
+
+  .poem-text {
+    font-family: "Texturina", Georgia, serif;
+    font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+    line-height: 1.23;
+    text-align: left;
+    white-space: pre-wrap;
+    color: hsl(0, 0%, 100%);
+    text-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.55),
+      0 0 12px rgba(0, 0, 0, 0.25);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+
   .video-frame {
     position: relative;
     width: 100%;
@@ -412,6 +825,31 @@
     margin-top: 1.5rem;
   }
 
+  .audio-location {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .audio-location + .audio-location {
+    margin-top: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #d8d0c3;
+  }
+
+  .audio-location h3 {
+    font-family: "Texturina", serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .audio-location > p {
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: #555;
+    margin: -0.35rem 0 0;
+  }
+
   .audio-track {
     background: #fff;
     padding: 1rem 1.15rem;
@@ -444,6 +882,87 @@
     height: 40px;
   }
 
+  .map-point-explorer {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .map-point-list {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .map-point-list button {
+    width: 100%;
+    border: 1px solid #d8d0c3;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.72);
+    padding: 0.85rem 1rem;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      transform 0.2s;
+  }
+
+  .map-point-list button:hover,
+  .map-point-list button:focus,
+  .map-point-list button.active {
+    background: #fff;
+    border-color: #111;
+    outline: none;
+    transform: translateX(4px);
+  }
+
+  .map-point-list span {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .map-point-list small {
+    display: block;
+    color: #555;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .map-point-preview {
+    margin: 0;
+  }
+
+  .map-point-preview img {
+    width: 100%;
+    max-height: 80px;
+    z-index:40;
+    object-fit: cover;
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .video-section {
+    width: calc(100% - 4rem);
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    scroll-margin-top: 8rem;
+  }
+
+  .video-copy {
+    max-width: 680px;
+    margin-bottom: 1.25rem;
+  }
+
+  .video-copy p {
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
   @media (max-width: 960px) {
     .scrolly {
       grid-template-columns: 1fr;
@@ -471,6 +990,38 @@
 
     .story-nav {
       top: 4.5rem;
+    }
+    .poem-overlay {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .poem-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .program-note-poem,
+    .program-note-image img,
+    .program-note-placeholder {
+      max-height: none;
+    }
+
+    .program-note-placeholder {
+      min-height: 320px;
+    }
+
+    .video-section {
+      width: calc(100% - 2rem);
+      margin-top: 2rem;
+      scroll-margin-top: 7rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .poem-overlay,
+    .caption-animated {
+      /* Still show/hide, but without the movement */
+      transition: opacity 0.5s ease;
     }
   }
 </style>

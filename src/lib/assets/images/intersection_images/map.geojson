@@ -7,7 +7,7 @@
       "name": "Time Bomb Vintage",
       "properties": {
         "audio": "time_bomb_isolated.wav",
-        "emotional_layer": "time_bomb_emotional.wav", 
+        "emotional_layer": "time_bomb_emotional.wav",
         "image": "avg_1.jpg"
       },
       "geometry": {
@@ -18,14 +18,14 @@
     {
       "type": "Feature",
       "id": 2,
-      "name": "The Graduate",
+      "name": "Government Plaza",
       "properties": {
-        "audio": "song.wav",
+        "audio": "song2.wav",
         "emotional_layer": "song3.wav",
-        "image": "avg_9.jpg"
+        "image": "avg_7.jpg"
       },
       "geometry": {
-        "coordinates": [-93.22936686293409, 44.9740123079913],
+        "coordinates": [-93.26616149923254, 44.9764441164582],
         "type": "Point"
       }
     },
@@ -88,20 +88,6 @@
     {
       "type": "Feature",
       "id": 7,
-      "name": "Government Plaza",
-      "properties": {
-        "audio": "song2.wav",
-        "emotional_layer": "song3.wav",
-        "image": "avg_7.jpg"
-      },
-      "geometry": {
-        "coordinates": [-93.26616149923254, 44.9764441164582],
-        "type": "Point"
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 8,
       "name": "Stone Arch Bridge",
       "properties": {
         "audio": "time_bomb_isolated.wav",
