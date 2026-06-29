@@ -171,8 +171,7 @@ export const programNotes = {
       image: images.program_notes_3,
       alt: "Program notes for Embodied Geography",
       caption: "Program distributed at VirtuART, May 13, 2026.",
-    },
-    null,
+    }
   ],
 };
 
@@ -191,6 +190,9 @@ export type AudioLocation = {
 
 export const audioCompositionIntro =
   "The creators collected sound, visual, and numerical data from locations around Minneapolis. Rather than directly conveying the data they collected and letting the audience decide how to feel about it, the sound and the movement present in the piece are imbued with the emotions of the creators.";
+
+  export const programNotesIntro =
+    "Personal notes, images, and poems, representing the daily lives of the authors during the occupation. ";
 
   export const backgroundPoem = [
     {
@@ -372,6 +374,14 @@ export const storySteps: StoryStep[] = [
     image: intersectionCapstone[1].image,
     imageAlt: intersectionCapstone[1].title,
     caption: `Figure 2: ${intersectionCapstone[1].description}`,
+  },
+  {
+    id: "program-notes",
+    section: "program-notes",
+    title: "Program Notes",
+    poem: programNotesIntro,
+    visual: "image", 
+    image: images.program_notes_4
   },
   ...backgroundPoem.map((item, i) => ({
     id: `program-note-${i}`,
