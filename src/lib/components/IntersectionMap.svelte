@@ -1,17 +1,26 @@
 <script lang="ts">
   import * as d3 from "d3";
   import { tile as d3Tile } from "d3-tile";
-  import type { FeatureCollection, Point } from "geojson";
+  import type { Feature, FeatureCollection, Point } from "geojson";
 
   let {
     geojson,
     activeFeatureId = null,
+    hoverPreview = null,
   }: {
     geojson: FeatureCollection;
     activeFeatureId?: number | null;
+    hoverPreview?: {
+      featureId: number;
+      image: string;
+      imageAlt: string;
+      caption?: string;
+      title: string;
+    } | null;
   } = $props();
 
   let svg = $state<SVGSVGElement | undefined>();
+  let previewPosition = $state<{ x: number; y: number } | null>(null);
 
   const width = 560;
   const height = 560;
@@ -88,6 +97,7 @@
     }
   }
 
+  
   function updateOverlay(
     svgSel: d3.Selection<SVGSVGElement, unknown, null, undefined>, 
     features: MapFeature[], 
@@ -146,6 +156,53 @@
         (update) => update,
         (exit) => exit.remove()
       );
+
+   // Inside your updateOverlay function:
+
+if (hoverPreview) {
+  const previewFeature = features.find(
+    (feature) => feature.id === hoverPreview.featureId
+  );
+  const projected = previewFeature ? projection(coords(previewFeature)) : null;
+
+  if (projected) {
+    const rawX = projected[0];
+    const rawY = projected[1];
+
+    // Estimated box dimensions for boundary checking
+    const previewWidth = 200; 
+    const previewHeight = 150; 
+    const offset = 15;
+
+    // Default target placements
+    let targetLeft = rawX + offset;
+    let targetTop = rawY - (previewHeight / 2);
+
+    // Right Edge Boundary Collision
+    if (targetLeft + previewWidth > width) {
+      targetLeft = rawX - previewWidth - offset;
+    }
+    // Left Edge Boundary Collision
+    if (targetLeft < 0) {
+      targetLeft = offset;
+    }
+
+    // Bottom Edge Boundary Collision
+    if (targetTop + previewHeight > height) {
+      targetTop = height - previewHeight - offset;
+    }
+    // Top Edge Boundary Collision
+    if (targetTop < 0) {
+      targetTop = offset;
+    }
+
+    previewPosition = { x: targetLeft, y: targetTop };
+  } else {
+    previewPosition = null;
+  }
+} else {
+  previewPosition = null;
+}
   }
 
   // Svelte 5 reactive effects split to prevent map rebuilding on activeFeatureId changes
@@ -177,6 +234,7 @@
   $effect(() => {
     if (!svg || !geojson?.features?.length) return;
     activeFeatureId; // register dependency
+    hoverPreview; // register dependency
     
     const svgSel = d3.select(svg);
     const features = geojson.features as MapFeature[];
@@ -193,6 +251,17 @@
 </script>
 
 <div class="map-container">
+  {#if hoverPreview && previewPosition}
+  <div
+    class="preview-tile"
+    style:left="{(previewPosition.x / width) * 100}%"
+    style:top="{(previewPosition.y / height) * 100}%"
+  >
+    <img src={hoverPreview.image} alt={hoverPreview.imageAlt} />
+    <div class="preview-meta">
+    </div>
+  </div>
+{/if}
   <svg
     bind:this={svg}
     viewBox="0 0 {width} {height}"
@@ -217,6 +286,7 @@
   .map-container {
     width: 100%;
     max-width: 560px;
+    position: relative;
   }
 
   svg {
@@ -225,5 +295,38 @@
     display: block;
     border-radius: 4px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+.preview-tile {
+    position: absolute;
+    z-index: 12;
+    width: 200px; /* Explicit width corresponding to the math above */
+    border: 1px solid #d8d0c3;
+    border-radius: 4px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+    pointer-events: none;
+    transition: left 0.1s ease, top 0.1s ease; /* Optional smooth trail */
+  }
+
+  .preview-tile img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .preview-meta span {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 0.2rem;
+  }
+
+  .preview-meta small {
+    display: block;
+    font-size: 0.66rem;
+    color: #555;
+    line-height: 1.35;
   }
 </style>

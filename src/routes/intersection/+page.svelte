@@ -68,7 +68,6 @@
   );
   const activeHoverPoint = $derived(
     activeStep.mapPoints?.find((point) => point.featureId === hoveredMapFeatureId) ??
-      activeStep.mapPoints?.[0] ??
       null
   );
   const activeMapFeatureId = $derived(
@@ -280,6 +279,7 @@
               <IntersectionMap
                 geojson={mapGeoJson}
                 activeFeatureId={activeMapFeatureId}
+                hoverPreview={activeStep.id === "geography-remaining-points" ? activeHoverPoint : null}
               />
             {:else if activeStep.visual === "program-notes"}
               {#if activeStep.reverseLayout}
@@ -386,25 +386,17 @@
                     type="button"
                     class:active={activeHoverPoint?.featureId === point.featureId}
                     onmouseenter={() => (hoveredMapFeatureId = point.featureId)}
+                    onmouseleave={() => (hoveredMapFeatureId = null)}
                     onfocus={() => (hoveredMapFeatureId = point.featureId)}
+                    onblur={() => (hoveredMapFeatureId = null)}
                   >
                     <span>{point.title}</span>
                     {#if point.content}
                       <small>{point.content}</small>
                     {/if}
-                    
                   </button>
                 {/each}
               </div>
-
-{#if activeHoverPoint}
-                <figure class="map-point-preview map-point-list">
-                  <img
-                    src={activeHoverPoint.image}
-                    alt={activeHoverPoint.imageAlt}
-                  />
-                </figure>
-              {/if}
             </div>
           {/if}
           {#if step.audioLocationSlugs && activeAudioLocations.length && activeIndex === index}
@@ -890,11 +882,13 @@
 
   .map-point-list {
     display: grid;
+        grid-template-columns: repeat(5, 1fr);
+
     gap: 0.65rem;
   }
 
   .map-point-list button {
-    width: 100%;
+    display: grid;
     border: 1px solid #d8d0c3;
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.72);
@@ -918,14 +912,14 @@
   }
 
   .map-point-list span {
-    display: block;
+    display: grid;
     font-weight: 600;
     font-size: 0.9rem;
     margin-bottom: 0.25rem;
   }
 
   .map-point-list small {
-    display: block;
+    display: grid;
     color: #555;
     font-size: 0.78rem;
     line-height: 1.4;
@@ -938,10 +932,8 @@
   .map-point-preview img {
     width: 100%;
     max-height: 80px;
-    z-index:40;
     object-fit: cover;
     display: block;
-    border-radius: 4px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
 

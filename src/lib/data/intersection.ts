@@ -91,44 +91,51 @@ export const performanceImages = [
   }
 ];
 
-export const processImages = [
+export const mapPointsImages = [
   {
-    title: "in process",
+    title: "Sudarsna's Home",
     year: "2026",
     location: "Minneapolis, MN",
     description: "",
-    image: images.process_3,
+    image: images.mapPoints_1,
     size: "small",
   },
   {
-    title: "developing gestures",
+    title: "Alex Pretti",
     year: "2026",
     location: "Minneapolis, MN",
     description: "",
-    image: images.process_4,
+    image: images.mapPoints_2,
     size: "small",
   },
   {
-    title: "finding meaning through gesture",
+    title: "River",
     year: "2026",
     location: "Minneapolis, MN",
     description: "",
-    image: images.process_5,
+    image: images.mapPoints_3,
     size: "small",
   },
   {
-    title: "Room Setup",
+    title: "Aarush Home",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "lighting configuration at ArTeS studio, UMN",
-    image: images.room_setup,
+    description: "",
+    image: images.mapPoints_4,
+    size: "small",
+  },
+  {
+    title: "Stone Arch",
+    year: "2026",
+    location: "Minneapolis, MN",
+    description: "",
+    image: images.mapPoints_5,
     size: "small",
   },
 ];
 
 const AUDIO_BASE =
   "https://raw.githubusercontent.com/aarushbothra/geographic-memories-AV/main/geographic_memories/media";
-
 export const programNotes = {
   images: [
     {
@@ -325,10 +332,8 @@ export type StoryStep = {
   audioLocationSlugs?: string[];
   mapPoints?: {
     featureId: number;
-    title: string;
     content: string;
     image: string;
-    imageAlt: string;
     caption?: string;
   }[];
 };
@@ -381,44 +386,34 @@ export const storySteps: StoryStep[] = [
         featureId: 3,
         title: "Sudarsna's Home",
         content:
-          "Home, but during the ICE occupation. On January 17th, 2026, Sudarsna saw someone being abducted from her street corner.",
-        image: processImages[0].image,
-        imageAlt: processImages[0].title,
-        caption: processImages[0].description || processImages[0].title,
+          "Home, but during the ICE occupation.",
+        image: mapPointsImages[0].image,
       },
       {
         featureId: 4,
         title: "Alex Pretti Memorial",
         content: "At 18th Ave and Nicollet Ave.",
-        image: intersectionCapstone[1].image,
-        imageAlt: intersectionCapstone[1].title,
-        caption: intersectionCapstone[1].description,
+        image: mapPointsImages[1].image,
       },
       {
         featureId: 5,
         title: "River",
         content:
           "The Mississippi River is a central feature of both Minneapolis and the University campus.",
-        image: processImages[1].image,
-        imageAlt: processImages[1].title,
-        caption: processImages[1].description || processImages[1].title,
+        image: mapPointsImages[2].image,
       },
       {
         featureId: 6,
         title: "Aarush's Home and West Bank",
         content:
           "The West Bank neighborhood, home to a diverse immigrant community. ",
-        image: processImages[2].image,
-        imageAlt: processImages[2].title,
-        caption: processImages[2].description || processImages[2].title,
+        image: mapPointsImages[3].image,
       },
       {
         featureId: 7,
         title: "Stone Arch Bridge",
         content: "",
-        image: performanceImages[0].image,
-        imageAlt: performanceImages[0].title,
-        caption: performanceImages[0].description,
+        image: mapPointsImages[4].image,
       },
     ],
   },
@@ -445,7 +440,7 @@ export const storySteps: StoryStep[] = [
   },
 ];
 
-export const imageGallerySteps = [...processImages, ...performanceImages].map(
+export const imageGallerySteps = [...mapPointsImages, ...performanceImages].map(
   (img, i) => ({
     id: `playback-image-${i}`,
     section: "geography" as const,
