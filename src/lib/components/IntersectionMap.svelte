@@ -303,14 +303,14 @@ if (hoverPreview) {
     border: 1px solid #d8d0c3;
     border-radius: 4px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
-    overflow: hidden;
+    overflow: none;
     pointer-events: none;
     transition: left 0.1s ease, top 0.1s ease; /* Optional smooth trail */
   }
 
   .preview-tile img {
     width: 100%;
-    height: 100px;
+    height: 160px;
     object-fit: cover;
     display: block;
   }

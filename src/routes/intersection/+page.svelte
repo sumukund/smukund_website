@@ -380,6 +380,7 @@
           
           {#if step.id === "geography-remaining-points" && step.mapPoints}
             <div class="map-point-explorer">
+            <h3>Hover over the points to view the locations.</h3>
               <div class="map-point-list">
                 {#each step.mapPoints as point}
                   <button
@@ -819,6 +820,7 @@
 
   .audio-location {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.85rem;
   }
 
@@ -843,6 +845,7 @@
   }
 
   .audio-track {
+
     background: #fff;
     padding: 1rem 1.15rem;
     border-radius: 4px;

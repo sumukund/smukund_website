@@ -48,47 +48,39 @@ export const intersectionCapstone = [
   },
 ];
 
-export const performanceImages = [
+export const timeBombDanceImages = [
   {
-    title: "beginning the piece",
+    title: "Overview",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "dancer low to the ground",
+    description: "Surveying the space",
     image: images.perf_1, 
     size: "small",
   },
   {
-    title: "developing tension with the audience",
+    title: "Zoom and Filter",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "dancer level high, with leg out",
+    description: "dancer level high, with leg out. Accessing the point.",
     image: images.perf_2, 
     size: "small",
   },
   {
-    title: "implementing the sound system",
+    title: "Details on Demand",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "aarush instrumenting the stereo sound",
+    description: "low to the ground. Accessing detail layer.",
     image: images.perf_3, 
     size: "small",
   },
   {
-    title: "performance",
+    title: "Average",
     year: "2026",
     location: "Minneapolis, MN",
-    description: "images captured from the performance",
+    description: "Averaged gesture.",
     image: images.perf_4, 
     size: "small",
   },
-  {
-    title: "scenes",
-    year: "2026",
-    location: "Minneapolis, MN",
-    description: "different gestures",
-    image: images.perf_5, 
-    size: "small",
-  }
 ];
 
 export const mapPointsImages = [
@@ -171,7 +163,7 @@ export type AudioLocation = {
 };
 
 export const audioCompositionIntro =
-  "The creators collected sound, visual, and numerical data from these locations. Rather than directly conveying the data they collected and letting the audience decide how to feel about it, the sound and the movement present in the piece are imbued with the emotions of the creators. Adding a deliberate “bias” is not necessarily an accepted idea in the world of data visualization, and visualizations often disregard emotional data in favor of objectivity.";
+  "The creators collected sound, visual, and numerical data from locations around Minneapolis. Rather than directly conveying the data they collected and letting the audience decide how to feel about it, the sound and the movement present in the piece are imbued with the emotions of the creators.";
 
   export const backgroundPoem = [
     {
@@ -244,64 +236,54 @@ export const audioLocations: AudioLocation[] = [
   {
     name: "Time Bomb Vintage",
     slug: "time-bomb-vintage",
-    context:
-      "A South Minneapolis storefront.",
+    context: "A South Minneapolis storefront.",
     tracks: [
       {
-        label: "Field recording",
+        label: "Field Recording",
         file: `${AUDIO_BASE}/Time%20Bomb%20Vintage_field%20recording.wav`,
-        description:
-          "Raw ambient capture.",
+        description: "Raw ambient capture.",
       },
       {
-        label: "Emotional Dimension 1-isolation",
+        label: "Emotional Dimension 1",
         file: `${AUDIO_BASE}/Time%20Bomb%20Vintage_Isolated.wav`,
-        description:
-          "Individual textures separated from the field recording for selective playback.",
+        description: "Isolation",
       },
       {
-        label: "Anxiety",
+        label: "Emotional Dimension 2",
         file: `${AUDIO_BASE}/Time%20Bomb%20Vintage_Anxiety.wav`,
-        description:
-          "Sound composed by Aarush Bothra based on our field recordings.",
+        description: "Anxiety, tension",
       },
       {
-        label: "Averaged",
+        label: "Average",
         file: `${AUDIO_BASE}/Time%20Bomb%20Vintage_Averaged.wav`,
-        description:
-          "Using Marc Evanstein's Reverberated Averages to create an audio thumbprint of the site.",
+        description: "Reverberated Average: a thumbprint of the site",
       },
     ],
   },
   {
     name: "Hennepin County Government Center",
     slug: "hennepin-county-government-center",
-    context:
-      "A downtown civic site mapped onto the stage as the second geographic anchor, contrasting neighborhood and institutional space.",
+    context: "In stark contrast to the care of the neighborhood.",
     tracks: [
       {
-        label: "Field recording",
+        label: "Field Recording",
         file: `${AUDIO_BASE}/hennepin%20county%20governement%20center_field%20recording.wav`,
-        description:
-          "Raw ambient capture from the location, used as the sonic ground for all further processing.",
+        description: "Raw capture.",
       },
       {
-        label: "Isolated",
+        label: "Emotional Dimension 1",
         file: `${AUDIO_BASE}/hennepin%20county%20governement%20center_isolated.wav`,
-        description:
-          "Individual events and textures separated from the field recording for selective playback and spatialization.",
+        description: "Isolation ",
       },
       {
-        label: "Anxiety",
+        label: "Emotional Dimension 2",
         file: `${AUDIO_BASE}/hennepin%20county%20governement%20center_anxiety.wav`,
-        description:
-          "A processed layer derived from the recording, mapped to tension and emotional response at the site.",
+        description: "Anxiety, fear",
       },
       {
-        label: "Averaged",
+        label: "Average",
         file: `${AUDIO_BASE}/hennepin%20county%20governement%20center_averaged.wav`,
-        description:
-          "The combined performance stem—field material, isolated elements, and anxiety merged into a single layer.",
+        description: "Reverberated Average: a thumbprint of the site",
       },
     ],
   },
@@ -327,10 +309,11 @@ export type StoryStep = {
   poemName?: string;
   programNoteImageIndex?: number;
   reverseLayout?: boolean;
-  mapFeatureId?: number | null;
+  mapFeatureId?: number| null;
   audioLocationSlug?: string;
   audioLocationSlugs?: string[];
   mapPoints?: {
+    title: string;
     featureId: number;
     content: string;
     image: string;
@@ -385,8 +368,7 @@ export const storySteps: StoryStep[] = [
       {
         featureId: 3,
         title: "Sudarsna's Home",
-        content:
-          "Home, but during the ICE occupation.",
+        content: "Home, but during the ICE occupation.",
         image: mapPointsImages[0].image,
       },
       {
@@ -412,7 +394,7 @@ export const storySteps: StoryStep[] = [
       {
         featureId: 7,
         title: "Stone Arch Bridge",
-        content: "",
+        content: "A place of respite and a city icon.",
         image: mapPointsImages[4].image,
       },
     ],
@@ -422,12 +404,11 @@ export const storySteps: StoryStep[] = [
     section: "geography",
     title: "Sound sites",
     content:
-      "The first two locations hold the source recordings and composed sound materials. Play the recordings to bring process and performance images into the left side.",
+      "The first two locations hold the source recordings and composed sound materials. Play the recordings to demonstrate how movements map to data type taxonomy [Shneiderman, B. (2003). The eyes have it: A task by data type taxonomy for information visualizations.] ",
     visual: "map",
-    mapFeatureId: null,
+    mapFeatureId: 1,
     audioLocationSlugs: [
       "time-bomb-vintage",
-      "hennepin-county-government-center",
     ],
   },
   {
@@ -440,7 +421,7 @@ export const storySteps: StoryStep[] = [
   },
 ];
 
-export const imageGallerySteps = [...mapPointsImages, ...performanceImages].map(
+export const imageGallerySteps = [...timeBombDanceImages].map(
   (img, i) => ({
     id: `playback-image-${i}`,
     section: "geography" as const,
