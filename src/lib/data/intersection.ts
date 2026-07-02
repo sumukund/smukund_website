@@ -21,15 +21,6 @@ export const images = Object.entries(imageModules).reduce(
 
 export const intersectionCapstone = [
   {
-    title: "illuminated averages 3",
-    year: "2026",
-    location: "Minneapolis, MN",
-    description:
-      "Illuminated average of ICE protest posters from South Minneapolis",
-    image: images.avg_3, 
-    size: "small",
-  },
-  {
     title: "Performance demonstration",
     year: "2026",
     location: "Minneapolis, MN",
@@ -37,7 +28,17 @@ export const intersectionCapstone = [
     description:
 "Performing the system in space."  ,  
     size: "small",
+  },
+  {
+    title: "illuminated averages 3",
+    year: "2026",
+    location: "Minneapolis, MN",
+    description:
+      "Illuminated average of ICE protest posters from South Minneapolis",
+    image: images.avg_3, 
+    size: "small",
   }
+  
 ];
 
 export const timeBombDanceImages = [

@@ -208,8 +208,7 @@
 <div class="page">
   <header class="project-header" use:reveal>
     <h1>
-      Embodied Geography: Processing Operation Metro Surge through Gesture and
-      Sound
+      Embodied Geography: Processing Operation Metro Surge through Performance 
     </h1>
 
     <div class="authors">
@@ -234,7 +233,7 @@
     <div><a href="https://ivlab.cs.umn.edu/">University of Minnesota, Interactive Visualization Lab </a></div>
   </section>
     <section class="acknowledgements" use:reveal={{ delay: 80 }}>
-    <div><strong>Acknowledgements:</strong> Thank you to Dr. Daniel Keefe and members of the Interactive Visualization Lab at the University of Minnesota, the University of Minnesota ArTeS Collaborative Studio and Diane Willow for the use of ArTeS Studio for development,  Dr. Qianwen Wang,  Professor jess pretty and the University of Minnesota Theater and Dance Department for the guidance on gesture and movement.</div>
+    <div><strong>Acknowledgements:</strong> Thank you to Dr. Daniel Keefe and members of the Interactive Visualization Lab at the University of Minnesota, the University of Minnesota ArTeS Collaborative Studio and Diane Willow for the use of ArTeS Studio for development, Dr. Steven Guy, Dr. Qianwen Wang,  Professor jess pretty and the University of Minnesota Theater and Dance Department for the guidance on gesture and movement.</div>
     <div>
       
     </div>
@@ -380,7 +379,7 @@
           
           {#if step.id === "geography-remaining-points" && step.mapPoints}
             <div class="map-point-explorer">
-            <h3>Hover over the points to view the locations.</h3>
+            <h3>Hover over the cards to view the locations.</h3>
               <div class="map-point-list">
                 {#each step.mapPoints as point}
                   <button
