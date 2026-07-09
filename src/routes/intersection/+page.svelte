@@ -232,12 +232,7 @@
     <div><strong>Duration:</strong> 15 minutes</div>
     <div><a href="https://ivlab.cs.umn.edu/">University of Minnesota, Interactive Visualization Lab </a></div>
   </section>
-    <section class="acknowledgements" use:reveal={{ delay: 80 }}>
-    <div><strong>Acknowledgements:</strong> Thank you to Dr. Daniel Keefe and members of the Interactive Visualization Lab at the University of Minnesota, the University of Minnesota ArTeS Collaborative Studio and Diane Willow for the use of ArTeS Studio for development, Dr. Steven Guy, Dr. Qianwen Wang,  Professor jess pretty and the University of Minnesota Theater and Dance Department for the guidance on gesture and movement.</div>
-    <div>
-      
-    </div>
-  </section>
+
 
   <nav class="story-nav" aria-label="Story sections">
     {#each ["Background", "Program Notes", "Geography", "Video"] as label, i}
@@ -460,13 +455,33 @@
       </div>
     </section>
   {/if}
+
 </div>
+
+    <section class="acknowledgements" use:reveal={{ delay: 80 }}>
+    <div><strong>Acknowledgements:</strong> Thank you to Dr. Daniel Keefe and members of the Interactive Visualization Lab at the University of Minnesota, the University of Minnesota ArTeS Collaborative Studio and Diane Willow for the use of ArTeS Studio for development, Dr. Steven Guy, Dr. Qianwen Wang,  Professor jess pretty and the University of Minnesota Theater and Dance Department for the guidance on gesture and movement.</div>
+    <div>
+      
+    </div>
+  </section>
 
 <style>
   .page {
     max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 0 6rem;
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      padding: 1.5rem 0 4rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page {
+      padding: 1rem 0 3rem;
+    }
   }
 
   .project-header {
@@ -483,11 +498,49 @@
     margin: 0 0 1.5rem;
   }
 
+  @media (max-width: 768px) {
+    .project-header {
+      padding: 0 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .project-header {
+      padding: 0 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(1.25rem, 3vw, 2rem);
+      margin-bottom: 0.75rem;
+    }
+  }
+
   .authors {
     display: flex;
     justify-content: center;
     gap: 3rem;
     flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .authors {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .authors {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 
   .author-group {
@@ -515,6 +568,24 @@
     color: #333;
     border-bottom: 1px solid #ccc;
     margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .metadata-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+      padding: 0 1rem 1.5rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metadata-grid {
+      grid-template-columns: 1fr;
+      font-size: 0.8rem;
+      gap: 0.5rem;
+      padding: 0 1rem 1rem;
+    }
   }
     .acknowledgements {
     display: block;
@@ -555,6 +626,7 @@
       background 0.2s,
       color 0.2s,
       border-color 0.2s;
+    white-space: nowrap;
   }
 
   .story-nav button:hover,
@@ -562,6 +634,33 @@
     background: #111;
     color: #fff;
     border-color: #111;
+  }
+
+  @media (max-width: 768px) {
+    .story-nav {
+      padding: 0.75rem 1rem 1.5rem;
+      gap: 0.35rem 0.75rem;
+      top: 4.5rem;
+    }
+
+    .story-nav button {
+      font-size: 0.7rem;
+      padding: 0.4rem 0.65rem;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .story-nav {
+      padding: 0.5rem 0.75rem 1rem;
+      gap: 0.35rem 0.5rem;
+      top: 4rem;
+    }
+
+    .story-nav button {
+      font-size: 0.65rem;
+      padding: 0.35rem 0.5rem;
+    }
   }
 
   .scrolly {
@@ -588,6 +687,7 @@
 
   .graphic-panel {
     animation: fadeIn 0.45s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @keyframes fadeIn {
@@ -598,6 +698,103 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 960px) {
+    .scrolly {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0 1rem;
+    }
+
+    .scrolly-graphic {
+      position: sticky;
+      top: 7rem;
+      height: auto;
+      min-height: 42vh;
+      padding: 1rem 0;
+      background: #f6f3ee;
+      border-bottom: 1px solid #ddd;
+      z-index: 5;
+    }
+
+    .scrolly-steps {
+      padding-top: 1rem;
+    }
+
+    .step {
+      min-height: 65vh;
+    }
+
+    .story-nav {
+      top: 4.5rem;
+    }
+    .poem-overlay {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .poem-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .program-note-poem,
+    .program-note-image img,
+    .program-note-placeholder {
+      max-height: none;
+    }
+
+    .program-note-placeholder {
+      min-height: 320px;
+    }
+
+    .video-section {
+      width: calc(100% - 2rem);
+      margin-top: 2rem;
+      scroll-margin-top: 7rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .scrolly {
+      padding: 0 0.75rem;
+    }
+
+    .scrolly-graphic {
+      top: 6.5rem;
+      min-height: 35vh;
+      padding: 0.75rem 0;
+    }
+
+    .step {
+      min-height: 55vh;
+      padding: 1rem 0;
+    }
+
+    .story-nav {
+      top: 4rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .scrolly {
+      padding: 0 0.5rem;
+    }
+
+    .scrolly-graphic {
+      top: 5.5rem;
+      min-height: 30vh;
+      padding: 0.5rem 0;
+    }
+
+    .step {
+      min-height: 45vh;
+      padding: 0.75rem 0;
+    }
+
+    .story-nav {
+      top: 3.5rem;
     }
   }
 
@@ -613,6 +810,7 @@
     object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .visual-figure figcaption {
@@ -692,12 +890,25 @@
 
   .playback-figure img {
     max-height: calc(100vh - 14rem);
+    animation: imageSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes imageSlideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .playback-figure figcaption {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s backwards;
   }
 
   .playback-figure figcaption span {
@@ -719,6 +930,7 @@
     margin-top: 0.75rem;
     font-style: italic;
     text-align: center;
+    transition: opacity 0.4s ease;
   }
 
   /* Poem sits centred over the image, hidden until scroll brings it in */
@@ -811,10 +1023,49 @@
     text-align: justify;
   }
 
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .step-content {
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-content {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      text-align: left;
+    }
+  }
+
   .audio-tracks {
     display: grid;
     gap: 1rem;
     margin-top: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .audio-tracks {
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .audio-tracks {
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
   }
 
   .audio-location {
@@ -834,17 +1085,48 @@
     font-size: 1.1rem;
     font-weight: 400;
     margin: 0;
+    grid-column: 1 / -1;
   }
 
   .audio-location > p {
     font-size: 0.86rem;
     line-height: 1.5;
     color: #555;
-    margin: -0.35rem 0 0;
+    margin: -0.35rem 0 0.75rem;
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 768px) {
+    .audio-location {
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .audio-location h3 {
+      margin-bottom: 0.25rem;
+    }
+
+    .audio-location > p {
+      margin: 0 0 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .audio-location {
+      gap: 0.5rem;
+    }
+
+    .audio-location h3 {
+      font-size: 1rem;
+    }
+
+    .audio-location > p {
+      font-size: 0.75rem;
+    }
   }
 
   .audio-track {
-
     background: #fff;
     padding: 1rem 1.15rem;
     border-radius: 4px;
@@ -876,6 +1158,54 @@
     height: 40px;
   }
 
+  @media (max-width: 768px) {
+    .audio-track {
+      padding: 0.8rem 0.95rem;
+    }
+
+    .track-header {
+      margin-bottom: 0.5rem;
+    }
+
+    .track-label {
+      font-size: 0.85rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .track-desc {
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .audio-track audio {
+      height: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .audio-track {
+      padding: 0.7rem 0.8rem;
+    }
+
+    .track-header {
+      margin-bottom: 0.4rem;
+    }
+
+    .track-label {
+      font-size: 0.8rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .track-desc {
+      font-size: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .audio-track audio {
+      height: 32px;
+    }
+  }
+
   .map-point-explorer {
     display: grid;
     gap: 1rem;
@@ -884,8 +1214,7 @@
 
   .map-point-list {
     display: grid;
-        grid-template-columns: repeat(5, 1fr);
-
+    grid-template-columns: repeat(5, 1fr);
     gap: 0.65rem;
   }
 
@@ -902,6 +1231,10 @@
       background 0.2s,
       border-color 0.2s,
       transform 0.2s;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .map-point-list button:hover,
@@ -911,6 +1244,27 @@
     border-color: #111;
     outline: none;
     transform: translateX(4px);
+  }
+
+  @media (max-width: 768px) {
+    .map-point-list button {
+      padding: 0.7rem 0.85rem;
+      min-height: 55px;
+      font-size: 0.85rem;
+    }
+
+    .map-point-list button:active {
+      background: #f9f9f9;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .map-point-list button {
+      padding: 0.75rem 0.85rem;
+      min-height: 50px;
+      font-size: 0.8rem;
+      gap: 0.3rem;
+    }
   }
 
   .map-point-list span {
@@ -925,6 +1279,65 @@
     color: #555;
     font-size: 0.78rem;
     line-height: 1.4;
+  }
+
+  @media (max-width: 1024px) {
+    .map-point-list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .map-point-list button {
+      padding: 0.7rem 0.85rem;
+    }
+
+    .map-point-list span {
+      font-size: 0.85rem;
+    }
+
+    .map-point-list small {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .map-point-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .map-point-list button {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .map-point-list span {
+      font-size: 0.8rem;
+    }
+
+    .map-point-list small {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .map-point-list {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+
+    .map-point-list button {
+      padding: 0.5rem 0.65rem;
+      font-size: 0.8rem;
+    }
+
+    .map-point-list span {
+      font-size: 0.75rem;
+    }
+
+    .map-point-list small {
+      font-size: 0.65rem;
+    }
   }
 
   .map-point-preview {
@@ -955,60 +1368,6 @@
     line-height: 1.7;
     font-size: 0.95rem;
     margin: 0;
-  }
-
-  @media (max-width: 960px) {
-    .scrolly {
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .scrolly-graphic {
-      position: sticky;
-      top: 7rem;
-      height: auto;
-      min-height: 42vh;
-      padding: 1rem 0;
-      background: #f6f3ee;
-      border-bottom: 1px solid #ddd;
-      z-index: 5;
-    }
-
-    .scrolly-steps {
-      padding-top: 1rem;
-    }
-
-    .step {
-      min-height: 65vh;
-    }
-
-    .story-nav {
-      top: 4.5rem;
-    }
-    .poem-overlay {
-      padding: 1.25rem 1.5rem;
-    }
-
-    .poem-text {
-      font-size: 0.85rem;
-      line-height: 1.7;
-    }
-
-    .program-note-poem,
-    .program-note-image img,
-    .program-note-placeholder {
-      max-height: none;
-    }
-
-    .program-note-placeholder {
-      min-height: 320px;
-    }
-
-    .video-section {
-      width: calc(100% - 2rem);
-      margin-top: 2rem;
-      scroll-margin-top: 7rem;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
