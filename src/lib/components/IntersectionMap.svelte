@@ -295,17 +295,19 @@ if (hoverPreview) {
     display: block;
     border-radius: 4px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    touch-action: auto;
   }
-.preview-tile {
+
+  .preview-tile {
     position: absolute;
     z-index: 12;
-    width: 200px; /* Explicit width corresponding to the math above */
+    width: 200px;
     border: 1px solid #d8d0c3;
     border-radius: 4px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
     overflow: none;
     pointer-events: none;
-    transition: left 0.1s ease, top 0.1s ease; /* Optional smooth trail */
+    transition: left 0.1s ease, top 0.1s ease;
   }
 
   .preview-tile img {
@@ -328,5 +330,42 @@ if (hoverPreview) {
     font-size: 0.66rem;
     color: #555;
     line-height: 1.35;
+  }
+
+  @media (max-width: 768px) {
+    .preview-tile {
+      width: 160px;
+      font-size: 0.85rem;
+    }
+
+    .preview-tile img {
+      height: 130px;
+    }
+
+    .preview-meta span {
+      font-size: 0.65rem;
+    }
+
+    .preview-meta small {
+      font-size: 0.6rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .preview-tile {
+      width: 140px;
+    }
+
+    .preview-tile img {
+      height: 110px;
+    }
+
+    .preview-meta span {
+      font-size: 0.6rem;
+    }
+
+    .preview-meta small {
+      font-size: 0.55rem;
+    }
   }
 </style>

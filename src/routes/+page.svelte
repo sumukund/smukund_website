@@ -99,7 +99,7 @@
 
     h1 {
         font-family: 'Texturina', serif;
-        font-size: clamp(2rem, 5vw, 4rem);
+        font-size: clamp(1.5rem, 5vw, 4rem);
         font-weight: 300;
         line-height: 1.25;
         max-width: 1050px;
@@ -132,7 +132,7 @@
     .description {
         max-width: 550px;
         line-height: 1.8;
-        font-size: 1.05rem;
+        font-size: clamp(0.9rem, 2vw, 1.05rem);
         color: #222;
     }
 
@@ -149,5 +149,66 @@
         border-top: 1px solid rgba(0, 0, 0, 0.1);
         padding-top: 1.5rem;
         display: inline-block;
+    }
+
+    /* Mobile responsive adjustments */
+    @media (max-width: 768px) {
+        /* Background image container */
+        .bg-container {
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .page {
+            padding: 1rem 1rem;
+            max-width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(1.25rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .description {
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            max-width: 100%;
+        }
+
+        main {
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            padding-top: 1rem;
+        }
+
+        .agency-credit {
+            font-size: 0.75rem;
+            padding-top: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page {
+            padding: 0.75rem;
+        }
+
+        h1 {
+            font-size: clamp(1.1rem, 3.5vw, 2rem);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .description {
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .agency-credit {
+            font-size: 0.7rem;
+            letter-spacing: 0.3px;
+        }
     }
 </style>
